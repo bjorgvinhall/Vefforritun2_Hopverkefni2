@@ -58,6 +58,8 @@ Fyrir neðan línur er form sem biður um nafn og heimilisfang til að breyta k�
 
 ### Annað
 
+* Nota skal React, mælt er með að nota [`create react app`](https://github.com/facebook/create-react-app)
+  * Ekki þarf að hafa _server-side rendering_ uppsett í verkefni
 * Þegar kallað er í vefþjónustu skal birta loading state og bregðast við villum
 * Ef síða finnst ekki skal birta 404 síðu
 * Ef reynt er að skoða síðu sem ekki er heimild til að skoða (t.d. pantanir ef notandi ekki innskráður) skal birta að ekki sé heimild til að skoða
