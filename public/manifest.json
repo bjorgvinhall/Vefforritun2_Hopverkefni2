@@ -1,0 +1,8 @@
+{
+  "short_name": "Hópverkefni 2",
+  "name": "Sýnilausn á hópverkefni 2",
+  "start_url": ".",
+  "display": "standalone",
+  "theme_color": "#000000",
+  "background_color": "#ffffff"
+}

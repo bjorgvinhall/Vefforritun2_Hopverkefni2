@@ -80,6 +80,10 @@ Fyrir neðan línur er form sem biður um nafn og heimilisfang til að breyta k�
     * Rauður, ógild gildi: `#4e1d04`
   * Hröðun: `250ms ease-in-out`
 
+## TypeScript grunnur
+
+Gefinn er grunnur að virkni (út frá sýnilausn) sem notar Create React App með TypeScript. Undir `src/` er grunnur að síðum og components.
+
 ## Stjórnendavirkni
 
 Ef notandi er stjórnandi skal hann fá aðgang að síðu þar sem hægt er að:
@@ -159,8 +163,9 @@ Verkefnahluti gildir 60% og lokapróf gildir 40%. Ná verður *bæði* verkefnah
 
 ---
 
-> Útgáfa 0.1
+> Útgáfa 0.2
 
 | Útgáfa | Lýsing        |
 |--------|---------------|
 | 0.1    | Fyrsta útgáfa |
+| 0.2    | Bæta við TypeScript grunn |

@@ -1,0 +1,41 @@
+@import '../../config';
+
+.button {
+  display: inline-block;
+
+  width: 100%;
+  max-width: 250px;
+  padding: 10px 15px;
+  margin: 0;
+
+  font-family: $font-main;
+  font-size: 1rem;
+
+  color: $color-background;
+  text-align: center;
+
+  cursor: pointer;
+
+  background-color: $color-font;
+
+  border: 1px solid $color-font;
+  border-radius: 4px;
+
+  transition:
+    color $transition,
+    background-color $transition,
+    border-color $transition;
+
+  &:hover {
+    color: $color-font;
+    background-color: $color-background;
+  }
+
+  &--small {
+    padding: 5px 10px;
+    max-width: initial;
+    width: auto;
+
+    font-size: 0.875rem;
+  }
+}
