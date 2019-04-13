@@ -1,5 +1,21 @@
 @import '../../config.scss';
 
-.input {
+.register {
+    display:flex;
+    margin: 1rem;
+    flex-direction: row; 
+    flex-wrap:wrap; 
+    max-width: 500px; 
+}
 
+.register input{
+    font-size: 1rem;
+    padding: 8px;
+    border: 1px solid #ddd;
+    border-radius: 3px;
+}
+.register legend {
+    flex: 1; 
+    display: flex;
+    font-size: 1.375rem;
 }
