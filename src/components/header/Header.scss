@@ -1,4 +1,35 @@
 @import '../../config.scss';
 
 .header {
+    background-color: #222;
+    padding-bottom: 2.5em; 
+    
+}
+.header__link  {
+    color: #ffffff;
+    text-decoration: none;
+}
+.header__contentTitle{
+    padding-top: 2rem; 
+    padding-left: 1rem; 
+}
+.header__titleLink {
+    color: #ffffff;
+    text-decoration: none;
+}
+.header__content {
+    display: flex;  
+    justify-content: space-between;
+}
+.header__link {
+    padding: 1rem; 
+}
+.header__contentLinkUpper {
+    padding: 1rem; 
+}
+.header__contentLinkLower {
+    padding: 0 1.5rem; 
+}
+.header__link--selected {
+    font-weight: 700; 
 }
