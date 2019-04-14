@@ -18,14 +18,16 @@ export default function Home() {
   return (
     <Fragment>
       <Helmet title="Forsíða" />
-      <h1>Nýjar vörur</h1>
-      <div className="products">
-        {products.map((product) => (
-          <Product
-            key={product.id}
-            product={product}
-          ></Product>
-        ))}
+      <div className="home">
+        <h1>Nýjar vörur</h1>
+        <div className="products">
+          {products.map((product) => (
+            <Product
+              key={product.id}
+              product={product}
+            ></Product>
+          ))}
+        </div>
       </div>
     </Fragment>
   );
