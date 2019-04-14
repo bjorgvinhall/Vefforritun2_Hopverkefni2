@@ -3,16 +3,30 @@ import React, { useState } from 'react';
 import './Register.scss';
 import Button from '../../components/button/Button';
 import Input from '../../components/input/Input'
-
-
+import { registerUser } from '../../api/index';
+import { Ierrors } from '../../api/types';
+import { Redirect } from 'react-router-dom'
 
 export default function Register(props:any) {
   const [data, setData] = useState({ user: '', password: '', email: '' });
-  
-  async function onSubmit() {
-    // e.preventDefault();
-    console.log(data.user);
+  const [loading, setLoading] = useState(false);
+  const [errors, setErrors] = useState([] as Ierrors[]);
 
+  async function onSubmit(){
+    setLoading(true);
+    setErrors([]);
+    const result = await registerUser(data.user, data.password, data.email);
+
+    if (!result.success) {
+      await setErrors(result.result);
+      setLoading(false);
+      return;
+    } else {
+      //Virkar ekki
+      return <Redirect to='/'/>
+    }
+    setLoading(false);
+    
   }
 
   function onChangeUser(e: any){
@@ -20,7 +34,20 @@ export default function Register(props:any) {
       ...data,
       user: e.target.value,
     });
-    console.log("e.target", data.user)
+  }
+
+  function onChangePassword(e: any){
+    setData({
+      ...data,
+      password: e.target.value,
+    });
+  }
+
+  function onChangeEmail(e: any){
+    setData({
+      ...data,
+      email: e.target.value,
+    });
   }
   
   return (
@@ -32,22 +59,32 @@ export default function Register(props:any) {
       onChange={onChangeUser}>
     </Input>
     <Input
-    label={'Lykilorð:'}>
+      label={'Lykilorð:'}
+      onChange={onChangePassword}>
     </Input>
     <Input
-    label={'Netfang:'}>
+    label={'Netfang:'}
+    onChange={onChangeEmail}>
     </Input>
     </div>
 
     <div className="register__button">
       <Button 
       onClick={onSubmit}
-        >Nýskrá
+      >Nýskrá
       </Button>
     </div>
   <p>Innskráning</p>
+  {/* errors && (
+    <div className={'errors'}>
+      <ul>
+        {console.log(errors)}
+        {errors.map((error: any) => (
+          <li className={'errors__message'}>{error.error}</li>
+        ))}
+      </ul>
+    </div>
+        )*/}
 </div>
-  
-   
   )
 }

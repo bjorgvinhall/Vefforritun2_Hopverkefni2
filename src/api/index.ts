@@ -17,6 +17,31 @@ async function getProducts() {
   return result;
 }
 
+
+export async function registerUser(username: any, password: any , email: any) {
+  const options = {
+    body: JSON.stringify({
+      username,
+      password, 
+      email
+    }),
+    headers: {
+      'content-type': 'application/json',
+    },
+    method: 'POST',
+  };
+
+  const url = new URL('/users/register', baseurl);
+
+  const response = await fetch(url.href, options);
+  const result = await response.json();
+  console.log("index", result)
+  return {
+    success: response.ok,
+    result
+  }
+}
+
 async function getProduct(id: number | string) : Promise<IProduct> {
   // todo sækja vöru
 
