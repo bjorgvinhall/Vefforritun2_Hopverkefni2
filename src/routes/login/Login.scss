@@ -1,4 +1,18 @@
 @import '../../config.scss';
 
-.login {
+.login__wrapper {
+    margin: 2rem; 
 }
+.login__button {
+    margin-top: 1rem; 
+    padding-left: 1rem; 
+}
+.login__wrapper p {
+    padding-top: 2rem; 
+    padding-left: 1rem; 
+}
+
+.login__wrapper h1 {
+    margin-left: 1rem;
+}
+
