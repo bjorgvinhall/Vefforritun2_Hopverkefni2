@@ -3,10 +3,12 @@ import './Product.scss';
 import {Link} from 'react-router-dom'
 
 export default function Product(props: any) {
-  const { product } = props;
-
+  const { product, onClick } = props;
+  function klikk(e: any, id: number){
+    if(onClick) onClick(id);
+  }
   return (
-    <Link to={`/product/${product.id}`} className="product" style={{ textDecoration: 'none', color: '#000' }}>
+    <Link to={`/product/${product.id}`} onClick={(e: any) => klikk(e, product.id)} className="product" style={{ textDecoration: 'none', color: '#000' }}>
       <div className="product__image"> 
         <img className="product__img" src={product.image}></img>
       </div>

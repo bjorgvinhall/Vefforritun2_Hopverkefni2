@@ -4,6 +4,7 @@ import { getProductDetails, getProductsFormCat } from '../../api/index'
 import { IProduct } from '../../api/types';
 import Button from '../../components/button/Button';
 import Product from '../../components/product/Product'
+import { AnyAaaaRecord } from 'dns';
 
 export default function ProductRoute(props: any) {
   const { id } = props.match.params
@@ -33,8 +34,11 @@ export default function ProductRoute(props: any) {
     foo();
   }, []);
 
-  async function onClickHandler() {
-    console.log("SKRRT")
+  async function onClickHandler(i: number) {
+    setLoading(true);
+    const item: IProduct = await getProductDetails(i);
+    setDetails(item);
+    setLoading(false);
   }
 
   if(loading) return(
@@ -69,9 +73,9 @@ export default function ProductRoute(props: any) {
     <div className="more">
       <h3>Meira úr {details.category_title}</h3>
       <div className="more__products">
-        {console.log("products núna", details.id)}
         {products.map((product) => (
           <Product
+            onClick={onClickHandler}
             key={product.id}
             product={product}
           ></Product>
