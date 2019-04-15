@@ -42,9 +42,9 @@ export default function Cart() {
   }
 
   return (
-    <div className={'shipping'} >
-      <h2>Senda inn pöntun</h2>
-      <div className={'shipping__form'}>
+    <div className={'cart__shipping'} >
+      <h2 className={'cart__shipping__header'}>Senda inn pöntun</h2>
+      <div className={'cart__shipping__form'}>
         <Input
           label={'Nafn:'}
           onChange={onChangeName}>
@@ -54,13 +54,13 @@ export default function Cart() {
           onChange={onChangeAddress}>
         </Input>      
       </div>
-      <div className="shipping__button">
+      <div className="cart__shipping__button">
         <Button 
           // onClick={onSubmit}
         >
           Senda inn pöntun
         </Button>
-    </div>
+      </div>
     </div>
   );
 }
