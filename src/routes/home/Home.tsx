@@ -1,16 +1,22 @@
 import React, { Fragment, useState, useEffect } from 'react';
 import Helmet from 'react-helmet';
-import Product from '../product/Product';
-import { getProducts } from '../../api/index';
+
+import Product from '../../components/product/Product';
+import Categories from '../categories/Categories';
 import './Home.scss';
+
+import { getProducts } from '../../api/index';
 import { IProduct } from '../../api/types';
 
 export default function Home() {
   const [products, setProducts] = useState([] as IProduct[]);
+  const [loading, setLoading] = useState(false);
   useEffect(()=>{
     const foo = async () => {
-      const items = await getProducts();
+      setLoading(true);
+      const items = await getProducts(12);
       setProducts(items.items);
+      setLoading(false)
     };
     foo();
   }, []);
@@ -21,6 +27,9 @@ export default function Home() {
       <div className="home">
         <h1>Nýjar vörur</h1>
         <div className="products">
+          {loading && (
+            <h2>Sæki vörur...</h2>
+          )}
           {products.map((product) => (
             <Product
               key={product.id}
@@ -28,6 +37,8 @@ export default function Home() {
             ></Product>
           ))}
         </div>
+        <p>TODO, gera categories og birta hér</p>
+        {/* <Categories></Categories> */}
       </div>
     </Fragment>
   );
