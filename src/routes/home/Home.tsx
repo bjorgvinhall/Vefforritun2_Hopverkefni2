@@ -32,13 +32,14 @@ export default function Home() {
           )}
           {products.map((product) => (
             <Product
+              onClick={null}
               key={product.id}
               product={product}
             ></Product>
           ))}
         </div>
         <p>TODO, gera categories og birta hér</p>
-        {/* <Categories></Categories> */}
+        <Categories></Categories>
       </div>
     </Fragment>
   );
