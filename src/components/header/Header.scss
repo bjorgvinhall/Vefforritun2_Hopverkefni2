@@ -3,7 +3,6 @@
 .header {
     background-color: #222;
     padding-bottom: 2.5em; 
-    
 }
 .header__link  {
     color: #ffffff;
@@ -20,6 +19,8 @@
 .header__content {
     display: flex;  
     justify-content: space-between;
+    max-width: $max-width;
+    margin: auto;
 }
 .header__link {
     padding: 1rem; 
@@ -32,4 +33,16 @@
 }
 .header__link--selected {
     font-weight: 700; 
+}
+@media (max-width:650px){
+    .header__content {
+        flex-direction: column;
+    }
+    .header__contentTitle{
+        margin: auto;
+        padding: 1.5rem 0;
+    }
+    .header__contentLink{
+        margin: auto;
+    }
 }

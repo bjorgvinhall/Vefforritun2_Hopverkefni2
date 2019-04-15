@@ -8,7 +8,9 @@ export interface IProduct {
   title: string;
   price: number;
   image: string;
-  category: ICategory;
+  category?: ICategory;
+  category_id: number;
+  category_title: string;
   description?: string;
   created?: Date;
   updated?: Date;
