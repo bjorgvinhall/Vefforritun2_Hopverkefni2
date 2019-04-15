@@ -50,7 +50,6 @@ export async function getProductsFormCat(id: number, limit: number) {
   const product = await getProductDetails(id);
   const category = product.category_id;
   const url = new URL(`products?category=${category}&limit=${limit}`, baseurl);
-  console.log(url.href)
   const response = await fetch(url.href);
 
   if (!response.ok) {
@@ -100,7 +99,6 @@ export async function loginUser(username: any, password: any) {
 
   const response = await fetch(url.href, options);
   const result = await response.json();
-  console.log("komst hingað", result);
   return {
     success: response.ok,
     result
