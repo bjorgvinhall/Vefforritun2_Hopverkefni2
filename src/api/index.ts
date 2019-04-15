@@ -30,12 +30,32 @@ export async function registerUser(username: any, password: any , email: any) {
     },
     method: 'POST',
   };
-
   const url = new URL('/users/register', baseurl);
 
   const response = await fetch(url.href, options);
   const result = await response.json();
-  console.log("index", result)
+  return {
+    success: response.ok,
+    result
+  }
+}
+
+export async function loginUser(username: any, password: any) {
+  const options = {
+    body: JSON.stringify({
+      username,
+      password, 
+    }),
+    headers: {
+      'content-type': 'application/json',
+    },
+    method: 'POST',
+  };
+  const url = new URL('/users/login', baseurl);
+
+  const response = await fetch(url.href, options);
+  const result = await response.json();
+  console.log("komst hingað", result);
   return {
     success: response.ok,
     result
