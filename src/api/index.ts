@@ -107,7 +107,21 @@ export async function loginUser(username: any, password: any) {
   }
 }
 
+async function getCart() {
+  const url = new URL(`cart`, baseurl);
+  const response = await fetch(url.href);
+  
+  if (!response.ok) {
+    return null;
+  }
+
+  const result = await response.json();
+  
+  return result;
+}
+
 
 export {
   getProducts,
+  getCart,
 };
