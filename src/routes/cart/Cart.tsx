@@ -1,12 +1,17 @@
-import React, { useState } from 'react';
+import React, { useState, Fragment } from 'react';
+import Helmet from 'react-helmet';
 
 import './Cart.scss';
+import CartItem from '../../components/cart/Cart';
 import Button from '../../components/button/Button';
 import Input from '../../components/input/Input'
+
+import { IProduct } from '../../api/types';
 import { Ierrors } from '../../api/types';
 
 export default function Cart() {
   const [data, setData] = useState({ name: '', address: '' });
+  const [products] = useState([] as IProduct[]);
   const [loading, setLoading] = useState(false);
   const [errors, setErrors] = useState([] as Ierrors[]);
 
@@ -42,25 +47,42 @@ export default function Cart() {
   }
 
   return (
-    <div className={'cart__shipping'} >
-      <h2 className={'cart__shipping__header'}>Senda inn pöntun</h2>
-      <div className={'cart__shipping__form'}>
-        <Input
-          label={'Nafn:'}
-          onChange={onChangeName}>
-        </Input>
-        <Input
-          label={'Heimilisfang:'}
-          onChange={onChangeAddress}>
-        </Input>      
+    <Fragment>
+      <Helmet title="Karfa" />
+      <div className={'cart'}>
+        <div className={'cart__item'}>
+          {loading && (
+            <h2>Sæki vörur...</h2>
+          )}
+          {products.map((item) => (
+            <CartItem
+              onClick={null}
+              key={item.id}
+              cartItem={item}
+            ></CartItem>
+          ))}
+        </div>
       </div>
-      <div className="cart__shipping__button">
-        <Button 
-          // onClick={onSubmit}
-        >
-          Senda inn pöntun
-        </Button>
+      <div className={'shipping'} >
+        <h2 className={'shipping__header'}>Senda inn pöntun</h2>
+        <div className={'shipping__form'}>
+          <Input
+            label={'Nafn:'}
+            onChange={onChangeName}>
+          </Input>
+          <Input
+            label={'Heimilisfang:'}
+            onChange={onChangeAddress}>
+          </Input>      
+        </div>
+        <div className="shipping__button">
+          <Button 
+            // onClick={onSubmit}
+          >
+            Senda inn pöntun
+          </Button>
+        </div>
       </div>
-    </div>
+    </Fragment>
   );
 }
