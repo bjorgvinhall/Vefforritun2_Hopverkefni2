@@ -1,7 +1,28 @@
 import { IProduct } from './types';
 import 'isomorphic-fetch';
-
 const baseurl:string | undefined = process.env.REACT_APP_API_URL;
+
+// Sækir token úr localstorage, ef ekki til þá tómistrengurinn
+const token = localStorage.getItem('token') || '';
+
+// Hægt að senda tokenið svona
+export async function test() {
+  const options = {
+    headers: {
+      'content-type': 'application/json',
+      'Authorization': `Bearer ${token}`,
+    },
+    method: 'GET',
+  };
+  const url = new URL('/cart', baseurl);
+
+  const response = await fetch(url.href, options);
+  const result = await response.json();
+  return {
+    success: response.ok,
+    result
+  }
+}
 
 /**
  * Sækir vörur fyrir forsíðu
