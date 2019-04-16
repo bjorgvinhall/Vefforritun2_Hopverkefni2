@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import {Link} from 'react-router-dom'
+import { Link, Redirect } from 'react-router-dom'
 
 import './Login.scss';
 import Input from '../../components/input/Input';
@@ -24,11 +24,14 @@ export default function Login() {
       return;
     }
     // Login successful
-    console.log("LOGGED IN:", result.result.user.username, "token:", result.result.token)
-    localStorage.setItem('token', result.result.token)
+    localStorage.setItem('token', result.result.token);
+    localStorage.setItem('username', result.result.user.username);
     setLoginSuccessful(result.result.user.username);
   }
-
+  
+  if(loginSuccessful){
+    return <Redirect to="/" />
+  }
 
   function onSubmitUser(e: any) {
     setData({
@@ -44,15 +47,6 @@ export default function Login() {
       password: e.target.value,
     });
 
-  }
-
-  if(loginSuccessful){
-    return(
-      <div className={'login__wrapper'}>
-        <h1> Innskráning </h1>
-        <h3 className="login__success">Innskráning tókst. Velkomin(n), {loginSuccessful}!</h3>
-      </div>
-    )
   }
 
   return (
