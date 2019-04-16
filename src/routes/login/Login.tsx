@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import {Link} from 'react-router-dom'
 
 import './Login.scss';
 import Input from '../../components/input/Input';
@@ -10,17 +11,22 @@ import { Ierrors } from '../../api/types';
 export default function Login() {
   const [data, setData] = useState({user: '', password: ''});
   const [loading, setLoading] = useState(false);
+  const [loginSuccessful, setLoginSuccessful] = useState(null);
   const [errors, setErrors] = useState([] as Ierrors[]);
 
   async function onSubmit(){
     setLoading(true);
+    setErrors([]);
     const result = await loginUser(data.user, data.password);
     if(!result.success){
       setLoading(false);
       setErrors(result.result);
-      console.log(errors);
+      return;
     }
-      setLoading(false);
+    // Login successful
+    console.log("LOGGED IN:", result.result.user.username, "token:", result.result.token)
+    localStorage.setItem('token', result.result.token)
+    setLoginSuccessful(result.result.user.username);
   }
 
 
@@ -40,20 +46,23 @@ export default function Login() {
 
   }
 
+  if(loginSuccessful){
+    return(
+      <div className={'login__wrapper'}>
+        <h1> Innskráning </h1>
+        <h3 className="login__success">Innskráning tókst. Velkomin(n), {loginSuccessful}!</h3>
+      </div>
+    )
+  }
+
   return (
     <div className={'login__wrapper'}>
     <h1> Innskráning </h1>
     {errors && (
           <div className={'errors'}>
-          <ul>
-            {console.log("RENDER", errors)}
             {errors && errors.map((error: any) => (
-              <li className={'errors__message'}>{error.error}</li>
+              <p key={error.field} className={'errors__message'}>{error.error}</p>
             ))}
-            {/* {errors.length === 1 && (
-              <li className={'errors__message'}>{errors[0].error}</li>
-            )} */}
-          </ul>
         </div>
     )}
     <div className={'login__form'}>
@@ -72,7 +81,7 @@ export default function Login() {
     Skrá inn
     </Button>
     </div>
-    <p>Nýskráning</p>
+    <Link to="/register" className="login__linkToRegister">Nýskrá</Link>
     </div>
   );
 }

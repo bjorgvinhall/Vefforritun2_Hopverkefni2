@@ -4,11 +4,7 @@
     margin: 2rem; 
 }
 .login__button {
-    margin-top: 1rem; 
-    padding-left: 1rem; 
-}
-.login__wrapper p {
-    padding-top: 2rem; 
+    margin: 1rem 0; 
     padding-left: 1rem; 
 }
 
@@ -16,3 +12,17 @@
     margin-left: 1rem;
 }
 
+.login__success {
+    margin: 1rem;
+}
+
+.login__linkToRegister {
+    color: #000;
+    text-decoration: none;
+    margin: 2rem 1rem;
+}
+
+.errors__message {
+    margin-top: 0.5rem;
+    margin-left: 1rem;
+}
