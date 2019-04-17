@@ -1,4 +1,4 @@
-import React, { useState, Fragment } from 'react';
+import React, { Fragment, useState, useEffect } from 'react';
 import Helmet from 'react-helmet';
 
 import './Cart.scss';
@@ -6,14 +6,35 @@ import CartItem from '../../components/cart/Cart';
 import Button from '../../components/button/Button';
 import Input from '../../components/input/Input'
 
-import { IProduct } from '../../api/types';
-import { Ierrors } from '../../api/types';
+import { getCart } from '../../api/index';
+import { IProduct, ICart, Ierrors } from '../../api/types';
 
 export default function Cart() {
   const [data, setData] = useState({ name: '', address: '' });
-  const [products] = useState([] as IProduct[]);
-  const [loading, setLoading] = useState(false);
+  
+  const [cart, setCart] = useState([] as ICart[]);
   const [errors, setErrors] = useState([] as Ierrors[]);
+  const [products, setProducts] = useState([] as IProduct[]);
+  const [loading, setLoading] = useState(false);
+
+  useEffect(() => {
+    const foo = async () => {      
+      setLoading(true);
+      const items = await getCart();
+      console.log('Hér: ', items);
+
+      /* if (items === null) {
+        return (
+          <p>Karfan er tóm :(</p>
+        );
+      } */
+
+      setCart(items.items);
+      setLoading(false);
+    };
+    foo();
+  }, []);
+
 
 /*   async function onSubmit(){
     setLoading(true);
@@ -49,20 +70,18 @@ export default function Cart() {
   return (
     <Fragment>
       <Helmet title="Karfa" />
-      <div className={'cart'}>
-        <div className={'cart__item'}>
+      <div className="cart">
+        <h1>Karfa</h1>
+        <div className="cart__item">
           {loading && (
             <h2>Sæki vörur...</h2>
           )}
           {products.map((item) => (
-            <CartItem
-              onClick={null}
-              key={item.id}
-              cartItem={item}
-            ></CartItem>
+            <p>{item.title}</p>
           ))}
         </div>
       </div>
+
       <div className={'shipping'} >
         <h2 className={'shipping__header'}>Senda inn pöntun</h2>
         <div className={'shipping__form'}>

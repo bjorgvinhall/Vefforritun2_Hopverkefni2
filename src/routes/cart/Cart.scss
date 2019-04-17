@@ -4,6 +4,7 @@
 }
 
 .cart__item {
+  display: flex;
 }
 
 .cart__image {
@@ -21,7 +22,22 @@
 .cart__text {
 }
 
-cart__form {
+.cart__form {
+  display: flex;
+  flex-direction: column;
+}
+
+.cart__form__top {
+  display: flex;
+  flex-direction: row;
+}
+
+.cart__form__middle {
+  font-weight: 700;
+}
+
+.cart__total {
+  font-weight: 700;
 }
 
 .shipping {

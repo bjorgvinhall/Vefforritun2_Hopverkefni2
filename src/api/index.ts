@@ -140,7 +140,6 @@ export async function loginUser(username: any, password: any) {
 }
 
 async function getCart() {
-  console.log('Blessaður');
 
   const options = {
     headers: {
