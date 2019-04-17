@@ -1,0 +1,20 @@
+@import '../../config.scss';
+
+.category-list {
+    max-width: $max-width;
+    margin: 2rem 1rem;
+}
+
+.search__button {
+    margin: 1rem 0; 
+    padding-left: 1rem; 
+}
+
+.search__wrapper h1 {
+    margin-left: 1rem;
+}
+
+.search__form {
+    display: flex;
+    flex-direction: column;
+}
