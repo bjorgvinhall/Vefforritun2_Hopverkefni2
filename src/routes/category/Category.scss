@@ -1,20 +1,24 @@
 @import '../../config.scss';
 
-.category-list {
-    max-width: $max-width;
-    margin: 2rem 1rem;
-}
-
-.search__button {
-    margin: 1rem 0; 
-    padding-left: 1rem; 
-}
-
-.search__wrapper h1 {
-    margin-left: 1rem;
-}
-
 .search__form {
     display: flex;
-    flex-direction: column;
+    flex-flow: row;
+    align-items: center;
+    align-content: space-between;
 }
+
+.search__form legend {
+    font-size: 1rem;
+    padding-right: 1rem;
+    display: flex;
+    align-items: center;
+}
+
+.search__button button {
+    padding: 6px 15px;
+}
+
+.search__wrapper {
+    margin: 0;
+}
+
