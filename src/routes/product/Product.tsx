@@ -1,4 +1,5 @@
 import React, { Fragment, useState, useEffect } from 'react';
+import { Redirect } from 'react-router-dom'
 import './Product.scss';
 import { getProductDetails, getProductsFormCat } from '../../api/index'
 import { IProduct } from '../../api/types';
@@ -13,22 +14,19 @@ export default function ProductRoute(props: any) {
   const [details, setDetails] = useState({} as IProduct);
   const [products, setProducts] = useState([] as IProduct[]);
   const [loading, setLoading] = useState(false);
-  // Sækir upplýsingar um vöru
+  const [notFound, setNotFound] = useState(false);
+  // Sækir upplýsingar um vöru og vörur í sama flokki
   useEffect(()=>{
     const foo = async () => {
       setLoading(true);
       const item: IProduct = await getProductDetails(id);
+      if(item === null){
+        setNotFound(true);
+        return;
+      }
       setDetails(item);
-      setLoading(false)
-    };
-    foo();
-  }, []);
-  // Sækir vörur í sama flokki
-  useEffect(()=>{
-    const foo = async () => {
-      setLoading(true);
-      const items = await getProductsFormCat(id, 6);
-      setProducts(items);
+      const moreFromCat = await getProductsFormCat(id, 6);
+      setProducts(moreFromCat);
       setLoading(false)
     };
     foo();
@@ -41,10 +39,15 @@ export default function ProductRoute(props: any) {
     setLoading(false);
   }
 
+  if(notFound) return(
+    <Redirect to="/notFound"></Redirect>
+  )
+
   if(loading) return(
       <div className="details">
         <h3>Sæki upplýsingar</h3>
-      </div>)
+      </div>
+  )
 
   return (
     <Fragment>

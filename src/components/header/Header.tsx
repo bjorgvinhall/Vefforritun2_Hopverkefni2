@@ -5,7 +5,6 @@ import './Header.scss';
 
 export default function Home() {
   const username = localStorage.getItem('username');
-  console.log(username);
 
   function onClickLogout(){
     localStorage.clear();
