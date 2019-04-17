@@ -127,8 +127,18 @@ export async function loginUser(username: any, password: any) {
 }
 
 async function getCart() {
+  console.log('Blessaður');
+
+  const options = {
+    headers: {
+      'content-type': 'application/json',
+      'Authorization': `Bearer ${token}`,
+    },
+    method: 'GET',
+  };
+  
   const url = new URL(`cart`, baseurl);
-  const response = await fetch(url.href);
+  const response = await fetch(url.href, options);
   
   if (!response.ok) {
     return null;
