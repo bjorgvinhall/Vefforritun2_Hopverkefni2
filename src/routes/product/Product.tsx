@@ -1,7 +1,7 @@
 import React, { Fragment, useState, useEffect } from 'react';
 import { Redirect } from 'react-router-dom'
 import './Product.scss';
-import { getProductDetails, getProductsFormCat } from '../../api/index'
+import { getProductDetails, getProductsFromCat } from '../../api/index'
 import { IProduct } from '../../api/types';
 import Button from '../../components/button/Button';
 import Product from '../../components/product/Product'
@@ -25,7 +25,7 @@ export default function ProductRoute(props: any) {
         return;
       }
       setDetails(item);
-      const moreFromCat = await getProductsFormCat(id, 6);
+      const moreFromCat = await getProductsFromCat(id, 6);
       setProducts(moreFromCat);
       setLoading(false)
     };

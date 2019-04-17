@@ -77,10 +77,10 @@ export async function getProductDetails(id: number) {
 /**
  * Sækir vörur í ákveðnum vöruflokk
  * @param id númer vöru
- * @param id númer vöru
+ * @param limit hve margar vörur á að sækja
  * 
  */
-export async function getProductsFormCat(id: number, limit: number) {
+export async function getProductsFromCat(id: number, limit: number) {
   const product = await getProductDetails(id);
   const category = product.category_id;
   const url = new URL(`products?category=${category}&limit=${limit}`, baseurl);
@@ -152,6 +152,26 @@ async function getCart() {
   return result;
 }
 
+/**
+ * Sækir upplýsingar um flokk
+ * @param id númer flokks
+ */
+export async function getCategoryDetails(id: number) {
+  const url = new URL(`categories/${id}`, baseurl);
+  const response = await fetch(url.href);
+  
+  if (!response.ok) {
+    return null;
+  }
+
+  const result = await response.json();
+  
+  return result;
+}
+
+export async function searchInCategory(searchString: any) {
+  // todo
+}
 
 export {
   getProducts,
