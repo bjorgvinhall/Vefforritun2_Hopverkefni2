@@ -1,0 +1,27 @@
+@import '../../config.scss';
+
+.categories__wrapper{
+    display: flex; 
+    flex-wrap: wrap; 
+    border: black; 
+    justify-content: space-between; 
+}
+.categories__item h1 {
+    margin: 20px 10px; 
+    margin: auto; 
+    padding: 30px;  
+    font-weight: 400; 
+    color: #333;
+}
+
+.categories__item a {
+    list-style: none; 
+
+}
+.categories__item {
+    display: flex; 
+    width: 32%;
+    border: 1px solid #000;
+    border-color: #333; 
+    margin-top: 10px; 
+}
