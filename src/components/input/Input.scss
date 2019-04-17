@@ -1,11 +1,11 @@
 @import '../../config.scss';
 
 .register {
-    display:flex;
-    margin: 1rem;
+    display: flex;
+    margin: 1rem 1rem 1rem 0rem;
     flex-direction: row; 
-    flex-wrap:wrap; 
-    max-width: 500px; 
+    flex-wrap: wrap; 
+    max-width: 500px;
 }
 
 .register input{
