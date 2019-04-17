@@ -42,6 +42,7 @@ function App(props: Props) {
             <Route path="/cart" exact component={Cart} />
             <Route path="/orders" exact component={Orders} />
             <Route path="/orders/:id" exact component={Order} />
+            <Route path="/notFound" exact component={NotFound} />
             <Route component={NotFound} />
           </Switch>
         </main>

@@ -44,6 +44,19 @@ async function getProducts(limit: number) {
   return result;
 }
 
+export async function getCategories() {
+  const url = new URL(`categories?limit=500`, baseurl);
+  const response = await fetch(url.href);
+
+  if (!response.ok) {
+    return null;
+  }
+
+  const result = await response.json();
+  
+  return result;
+}
+
 /**
  * Sækir upplýsingar um vöru
  * @param id númer vöru
