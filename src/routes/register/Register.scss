@@ -4,15 +4,19 @@
     margin: 2rem; 
 }
 .register__button {
-    margin-top: 1rem; 
+    margin: 1rem 0; 
     padding-left: 1rem; 
-}
-.register__wrapper p {
-    padding-top: 2rem; 
-    padding-left: 1rem; ;
 }
 
 .register__wrapper h1 {
     margin-left: 1rem;
 }
 
+.register__linkToLogin {
+    color: #000;
+    text-decoration: none;
+    margin: 2rem 1rem;
+}
+.register__success {
+    margin: 1rem;
+}

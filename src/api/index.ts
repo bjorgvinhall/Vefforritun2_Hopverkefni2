@@ -1,7 +1,28 @@
 import { IProduct } from './types';
 import 'isomorphic-fetch';
-
 const baseurl:string | undefined = process.env.REACT_APP_API_URL;
+
+// Sækir token úr localstorage, ef ekki til þá tómistrengurinn
+const token = localStorage.getItem('token') || '';
+
+// Hægt að senda tokenið svona
+export async function test() {
+  const options = {
+    headers: {
+      'content-type': 'application/json',
+      'Authorization': `Bearer ${token}`,
+    },
+    method: 'GET',
+  };
+  const url = new URL('/cart', baseurl);
+
+  const response = await fetch(url.href, options);
+  const result = await response.json();
+  return {
+    success: response.ok,
+    result
+  }
+}
 
 /**
  * Sækir vörur fyrir forsíðu
@@ -63,7 +84,6 @@ export async function getProductsFormCat(id: number, limit: number) {
   const product = await getProductDetails(id);
   const category = product.category_id;
   const url = new URL(`products?category=${category}&limit=${limit}`, baseurl);
-  console.log(url.href)
   const response = await fetch(url.href);
 
   if (!response.ok) {
@@ -113,14 +133,27 @@ export async function loginUser(username: any, password: any) {
 
   const response = await fetch(url.href, options);
   const result = await response.json();
-  console.log("komst hingað", result);
   return {
     success: response.ok,
     result
   }
 }
 
+async function getCart() {
+  const url = new URL(`cart`, baseurl);
+  const response = await fetch(url.href);
+  
+  if (!response.ok) {
+    return null;
+  }
+
+  const result = await response.json();
+  
+  return result;
+}
+
 
 export {
   getProducts,
+  getCart,
 };
