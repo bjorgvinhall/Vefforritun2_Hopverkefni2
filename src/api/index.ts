@@ -95,6 +95,28 @@ export async function getProductsFromCat(id: number, limit: number) {
   return result.items;
 }
 
+export async function addToCart(product: number, quantity: number) {
+  const options = {
+    body: JSON.stringify({
+      product, 
+      quantity
+    }),
+    headers: {
+      'content-type': 'application/json',
+      'Authorization': `Bearer ${token}`,
+    },
+    method: 'POST',
+  };
+  const url = new URL('/cart', baseurl);
+
+  const response = await fetch(url.href, options);
+  const result = await response.json();
+  return {
+    success: response.ok,
+    result
+  }
+}
+
 
 export async function registerUser(username: any, password: any , email: any) {
   const options = {
