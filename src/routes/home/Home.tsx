@@ -38,7 +38,7 @@ export default function Home() {
             ></Product>
           ))}
         </div>
-        <p>TODO, gera categories og birta hér</p>
+  
         <Categories></Categories>
       </div>
     </Fragment>
