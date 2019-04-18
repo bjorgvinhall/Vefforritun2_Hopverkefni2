@@ -1,19 +1,22 @@
 import React, { Fragment, useState, useEffect } from 'react';
 import { Redirect } from 'react-router-dom'
 import './Product.scss';
-import { getProductDetails, getProductsFromCat } from '../../api/index'
+import { getProductDetails, getProductsFromCat, addToCart } from '../../api/index'
 import { IProduct } from '../../api/types';
 import Button from '../../components/button/Button';
 import Product from '../../components/product/Product'
-import { AnyAaaaRecord } from 'dns';
+import { appendFileSync } from 'fs';
 
 export default function ProductRoute(props: any) {
   const { id } = props.match.params
+  const username = localStorage.getItem('username');
 
-  // TODO loading state?
   const [details, setDetails] = useState({} as IProduct);
   const [products, setProducts] = useState([] as IProduct[]);
   const [loading, setLoading] = useState(false);
+  const [cartLoading, setCartLoading] = useState(false);
+  const [cartMessage, setCartMessage] = useState('');
+  const [quantity, setQuantity] = useState(0);
   const [notFound, setNotFound] = useState(false);
   // Sækir upplýsingar um vöru og vörur í sama flokki
   useEffect(()=>{
@@ -39,6 +42,28 @@ export default function ProductRoute(props: any) {
     setLoading(false);
   }
 
+  function onChangeQuantity(e: any) {
+    setQuantity(e.target.value)
+  }
+
+  async function addToCartHandler() {
+    setCartLoading(true);
+    setCartMessage('');
+    if(quantity < 1) {
+      setCartMessage('Vinsamlegast veljið fjölda stærri en 0');
+      setCartLoading(false)
+      return;
+    }
+    const result = await addToCart(details.id, quantity)
+    if(result.success){
+      setCartMessage(`${quantity} vöru(m) bætt við!`);
+    } else {
+      setCartMessage('Villa kom upp')
+    }
+    setCartLoading(false);
+    setQuantity(0)
+  }
+
   if(notFound) return(
     <Redirect to="/notFound"></Redirect>
   )
@@ -62,15 +87,26 @@ export default function ProductRoute(props: any) {
         {typeof details.description === 'string' && (details.description.split('\n').map((item, key) => (
           <p className="details__description" key={key}>{item}</p> ))
         )}
-        <div className="details__lower">
-          <span>Fjöldi</span>
-          <input className="details__input" type="textarea"></input>
-          <Button
-            small={true}
-            children="Bæta við körfu"
-            // TODO onclick handler til að bæta í körfu + loading state
-          ></Button>
-        </div>
+        {username && !cartLoading && (
+          <div className="details__lower">
+            <span>Fjöldi</span>
+            <input className="details__input" onChange={onChangeQuantity} type="number" min="1"></input>
+            <Button
+              onClick={addToCartHandler}
+              small={true}
+              children="Bæta við körfu"
+              // TODO onclick handler til að bæta í körfu + loading state
+            ></Button>
+            {cartMessage && (
+              <span className="details__cartMessage">{cartMessage}</span>
+            )}
+          </div>
+        )}
+        {cartLoading && (
+          <div className="details__lower">
+            <span>Bæti við körfu...</span>
+          </div>            
+        )}
       </div>
     </div>
     <div className="more">

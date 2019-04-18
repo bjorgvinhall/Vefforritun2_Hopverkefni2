@@ -16,14 +16,16 @@ export interface IProduct {
   updated?: Date;
 }
 
-/* export interface ICart {
+export interface ICart {
   id: number;
   title: string;
   quantity: number;
   total: number;
   line_number: number;
   cart_total: number;
-} */
+  created?: Date;
+  updated?: Date;
+}
 
 export interface Ierrors {
   field: string;
