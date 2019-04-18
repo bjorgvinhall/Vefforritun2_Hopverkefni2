@@ -12,7 +12,7 @@ export default function Orders() {
       <Fragment>
         <Helmet title="Pantanir" />
         <div className="cart">
-          <h2>Vinsamlegast skráðu þig inn til þess að skoða pantanir.</h2>
+          <h1>Vinsamlegast skráðu þig inn til þess að skoða pantanir.</h1>
           <Link to="/login" className="register__linkToLogin">Innskráning</Link>
         </div>
       </Fragment>
