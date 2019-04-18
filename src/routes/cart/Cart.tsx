@@ -42,7 +42,6 @@ export default function Cart() {
     <Fragment>
       <Helmet title="Karfa" />
       <div className="cart">
-        <div className="cart__item">
           {loading && (
             <h2>Sæki vörur...</h2>
           )}
@@ -53,7 +52,6 @@ export default function Cart() {
             product={product}
           ></CartItem>
           ))}
-        </div>
       </div>
       <div className={'shipping'} >
         <h2 className={'shipping__header'}>Senda inn pöntun</h2>

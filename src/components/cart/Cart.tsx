@@ -10,8 +10,8 @@ export default function Cart(props: any) {
     if(onClick) onClick(id);
   }
   return (
-    <Link to={`/product/${product.id}`} onClick={(e: any) => klikk(e, product.id)} className="product" style={{ textDecoration: 'none', color: '#000' }}>
-      <div className="cart__card">
+    <Link to={`/product/${product.product_id}`} onClick={(e: any) => klikk(e, product.product_id)} className="cart__item" style={{ textDecoration: 'none', color: '#000' }}>
+      
       <div className="cart__image"> 
         <img className="cart__img" src={product.image}></img>
       </div>
@@ -40,7 +40,6 @@ export default function Cart(props: any) {
             // TODO onclick handler til að bæta í körfu + loading state
           ></Button>
         </div>
-      </div>
       </div>
     </Link>
   );
