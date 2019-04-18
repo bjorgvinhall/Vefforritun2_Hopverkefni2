@@ -169,18 +169,35 @@ async function getCart() {
 export async function getCategoryDetails(id: number) {
   const url = new URL(`categories/${id}`, baseurl);
   const response = await fetch(url.href);
+  // respone = [object Response]
   
   if (!response.ok) {
     return null;
   }
 
   const result = await response.json();
-  
+  // result = [object Object]
+  // result.rows = undefined
   return result;
 }
 
-export async function searchInCategory(searchString: any) {
-  // todo
+/**
+ * SLeita í ákveðnum flokki
+ * @param searchString leitarstrengur
+ * @param id númer flokks
+ */
+export async function searchInCategory(searchString: string, id: number) {
+  const product = await getProductDetails(id);
+  const category = product.category_id;
+  const url = new URL(`products?search=${searchString}category=${category}`, baseurl);
+  const response = await fetch(url.href);
+  if (!response.ok) {
+    return null;
+  }
+
+  const result = await response.json();
+  
+  return result.items;
 }
 
 export {

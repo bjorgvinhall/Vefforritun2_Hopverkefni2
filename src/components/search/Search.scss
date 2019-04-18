@@ -1,5 +1,23 @@
 @import '../../config.scss';
 
-.search {
+.search__form {
+    display: flex;
+    flex-flow: row;
+    align-items: center;
+    align-content: space-between;
+}
 
+.search__form legend {
+    font-size: 1rem;
+    padding-right: 1rem;
+    display: flex;
+    align-items: center;
+}
+
+.search__button button {
+    padding: 6px 15px;
+}
+
+.search__wrapper {
+    margin: 0;
 }

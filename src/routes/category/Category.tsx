@@ -1,11 +1,10 @@
 import React, { Fragment, useState, useEffect } from 'react';
 import { Redirect } from 'react-router-dom';
 import './Category.scss';
-import { getProductsFromCat, getCategoryDetails, searchInCategory } from '../../api/index';
-import { IProduct, ICategory, Ierrors } from '../../api/types';
+import { getProductsFromCat, getCategoryDetails } from '../../api/index';
+import { IProduct, ICategory } from '../../api/types';
 import Product from '../../components/product/Product';
-import Button from '../../components/button/Button';
-import Input from '../../components/input/Input';
+import Search from '../../components/search/Search';
 
 export default function Category(props: any) {
   const { id } = props.match.params;
@@ -14,36 +13,29 @@ export default function Category(props: any) {
   const [products, setProducts] = useState([] as IProduct[]);
   const [loading, setLoading] = useState(false);
   const [notFound, setNotFound] = useState(false);
-  const [errors, setErrors] = useState([] as Ierrors[]);
-  const [data] = useState({ searchString: '' });
+  // console.log(products) gefur vörur úr röngum flokki
 
   useEffect(()=>{
     const foo = async () => {
       setLoading(true);
       const cat: ICategory = await getCategoryDetails(id);
+      // console.log(cat) er {"id":12,"title":"Computers"}
       if(cat === null){
         setNotFound(true);
         return;
       }
       setCategories(cat);
       const itemsFromCat = await getProductsFromCat(id, 100);
+      // id hér er rétt ID
       setProducts(itemsFromCat);
+      // itemsFromCat gefur okkur vörur úr röngum flokki
+      // -> hélt að þetta væri að gulltryggja vörur úr réttum flokki
       setLoading(false)
     };
     foo();
   }, []);
-
-  async function onSubmit(){
-    setLoading(true);
-    setErrors([]);
-    const result = await searchInCategory(data.searchString);
-
-    // todo
-  }
-
-  function onSearch(e: any){
-    // todo
-  }
+  console.log(JSON.stringify(products));
+  // fyrir utan useEffect fallið er categories {"id":12,"title":"Computers"}, annars tómur hlutur {}
 
   if(notFound) return(
     <Redirect to="/notFound"></Redirect>
@@ -58,30 +50,9 @@ export default function Category(props: any) {
     <Fragment>
       <div className="home">
         <h1>{categories.title}</h1>
-
-        <div className={'search__wrapper'}>
-          {errors && (
-            <div className={'errors'}>
-              {errors && errors.map((error: any) => (
-                <p key={error.field} className={'errors__message'}>{error.field}, {error.error}</p>
-              ))}
-            </div>
-          )}
-          <div className="search__form">
-          <Input
-            label={'Leita:'}
-            onChange={onSearch}>
-          </Input>
-            <div className="search__button">
-              <Button 
-              onClick={onSubmit}
-              >Leita
-              </Button>
-            </div>
-          </div>
-
-  
-        </div>
+        <Search
+          onClick={null}>
+        </Search>
 
         <div className="products">
           {loading && (
