@@ -20,6 +20,7 @@ export interface ICart {
   id: number;
   title: string;
   quantity: number;
+  image: string;
   total: number;
   line_number: number;
   cart_total: number;
