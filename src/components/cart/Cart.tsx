@@ -10,20 +10,22 @@ export default function Cart(props: any) {
     if(onClick) onClick(id);
   }
   return (
-    <Link to={`/product/${product.product_id}`} onClick={(e: any) => klikk(e, product.product_id)} className="cart__item" style={{ textDecoration: 'none', color: '#000' }}>
+    <Link to={`/cart`}  className="cart__item" style={{ textDecoration: 'none', color: '#000' }}>
       
       <div className="cart__image"> 
         <img className="cart__img" src={product.image}></img>
       </div>
       <div className="cart__info">
-        <p className="cart__title">{product.title}</p>
+        <Link to={`/product/${product.product_id}`} onClick={(e: any) => klikk(e, product.product_id)} className="cart__title">
+          <p>{product.title}</p>
+        </Link>
         <p className="cart__price">Verð: {product.price} kr.-</p>
       </div>
 
       <div className="cart__form">
         <div className="cart__form__top">
-          <span>Fjöldi</span>
-          <input className="cart__form__input" type="textarea"></input>
+          <span>Fjöldi:</span>
+          <input className="cart__form__input" type="textarea" ></input>
           <Button
             small={true}
             children="Uppfæra"
