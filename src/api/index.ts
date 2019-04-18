@@ -75,18 +75,38 @@ export async function getProductDetails(id: number) {
 }
 
 /**
+ * Sækir vörur í ákveðnum vöruflokk á /categories
+ * @param id númer vöru
+ * @param limit hve margar vörur á að sækja
+ * 
+ */
+export async function getCategory(id: number, limit: number) {
+  const url = new URL(`products?category=${id}&limit=${limit}`, baseurl);
+  const response = await fetch(url.href);
+  if (!response.ok) {
+    return null;
+  }
+  
+  const result = await response.json();
+  
+  return result.items;
+}
+
+/**
  * Sækir vörur í ákveðnum vöruflokk
  * @param id númer vöru
  * @param limit hve margar vörur á að sækja
  * 
  */
-export async function getProductsFromCat(id: number, limit: number) {    
-  const url = new URL(`/products?category=${id}&limit=${limit}`, baseurl);
+export async function getProductsFromCat(id: number, limit: number) {
+  const product = await getProductDetails(id);
+  const category = product.category_id;
+  const url = new URL(`products?category=${category}&limit=${limit}`, baseurl);
   const response = await fetch(url.href);
   if (!response.ok) {
     return null;
   }
-
+  
   const result = await response.json();
   
   return result.items;
