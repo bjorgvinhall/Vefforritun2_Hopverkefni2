@@ -1,7 +1,7 @@
 import React, { Fragment, useState, useEffect } from 'react';
 import { Redirect } from 'react-router-dom';
 import './Category.scss';
-import { getProductsFromCat, getCategoryDetails } from '../../api/index';
+import { getProductsFromCat, getCategoryDetails, getCategory } from '../../api/index';
 import { IProduct, ICategory } from '../../api/types';
 import Product from '../../components/product/Product';
 import Search from '../../components/search/Search';
@@ -25,7 +25,7 @@ export default function Category(props: any) {
         return;
       }
       setCategories(cat);
-      const itemsFromCat = await getProductsFromCat(id, 100);
+      const itemsFromCat = await getCategory(id, 100);
       // id hér er rétt ID
       setProducts(itemsFromCat);
       // itemsFromCat gefur okkur vörur úr röngum flokki
@@ -34,7 +34,7 @@ export default function Category(props: any) {
     };
     foo();
   }, []);
-  console.log(JSON.stringify(products));
+  // console.log(JSON.stringify(products));
   // fyrir utan useEffect fallið er categories {"id":12,"title":"Computers"}, annars tómur hlutur {}
 
   if(notFound) return(
