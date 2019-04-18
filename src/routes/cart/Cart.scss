@@ -1,13 +1,18 @@
 @import '../../config.scss';
 
 .cart {
+  max-width: $max-width;
+  margin: 2rem 1rem;
 }
 
 .cart__item {
+  
   display: flex;
+  flex-direction: column;
+
 }
 
-.cart__image {
+/* .cart__image {
 }
 
 .cart__img {
@@ -23,8 +28,7 @@
 }
 
 .cart__form {
-  display: flex;
-  flex-direction: column;
+
 }
 
 .cart__form__top {
@@ -37,8 +41,8 @@
 }
 
 .cart__total {
-  font-weight: 700;
-}
+
+} */
 
 .shipping {
   margin: 2rem; 

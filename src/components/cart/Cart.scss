@@ -1,4 +1,50 @@
 @import '../../config.scss';
 
 .cart {
+  display: flex;
+  //flex-wrap: wrap;
+  //justify-content: space-between;
+}
+
+.cart__item {
+
+    margin: auto;
+    width: 32%;
+    margin: 20px 5px;
+}
+
+.cart__card {
+  display: flex;
+  flex-direction: row;
+}
+
+.cart__img {
+    object-fit: cover;
+    width: 25%;
+  }
+
+.cart__info{
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.cart__title {
+  font-size: 1.2rem;
+  font-weight: 700;
+}
+
+.cart__price {
+}
+
+@media (max-width:1000px){
+    .cart__item {
+        width: 48%;
+    }
+}
+
+@media (max-width:650px){
+    .cart__item {
+        width: 98%;
+    }
 }
