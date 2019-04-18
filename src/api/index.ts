@@ -80,12 +80,9 @@ export async function getProductDetails(id: number) {
  * @param limit hve margar vörur á að sækja
  * 
  */
-export async function getProductsFromCat(id: number, limit: number) {
-  const product = await getProductDetails(id);
-  const category = product.category_id;
-  const url = new URL(`products?category=${category}&limit=${limit}`, baseurl);
+export async function getProductsFromCat(id: number, limit: number) {    
+  const url = new URL(`/products?category=${id}&limit=${limit}`, baseurl);
   const response = await fetch(url.href);
-
   if (!response.ok) {
     return null;
   }

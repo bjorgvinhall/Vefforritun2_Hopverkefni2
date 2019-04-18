@@ -34,7 +34,7 @@ export default function Category(props: any) {
     };
     foo();
   }, []);
-  console.log(JSON.stringify(products));
+  // console.log(JSON.stringify(products));
   // fyrir utan useEffect fallið er categories {"id":12,"title":"Computers"}, annars tómur hlutur {}
 
   if(notFound) return(
