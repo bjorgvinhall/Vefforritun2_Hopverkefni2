@@ -42,6 +42,7 @@ export default function ProductRoute(props: any) {
     const item: IProduct = await getProductDetails(i);
     setDetails(item);
     setLoading(false);
+    window.location.reload();
   }
 
   function onChangeQuantity(e: any) {
