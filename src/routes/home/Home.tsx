@@ -7,21 +7,52 @@ import Button from '../../components/button/Button';
 import Categories from '../categories/Categories';
 import './Home.scss';
 
-import { getProducts } from '../../api/index';
+import { getProducts, getPage } from '../../api/index';
 import { IProduct } from '../../api/types';
+import Button from '../../components/button/Button';
 
 export default function Home() {
   const [products, setProducts] = useState([] as IProduct[]);
   const [loading, setLoading] = useState(false);
+  const [links, setLinks] = useState({prev: '',self: '',next: ''});
+  const [page, setpage] = useState(1);
+
   useEffect(()=>{
     const foo = async () => {
       setLoading(true);
       const items = await getProducts(12);
       setProducts(items.items);
+      setLinks({
+        prev: items._links.prev,
+        self: items._links.self,
+        next: items._links.next,
+      })
       setLoading(false)
     };
     foo();
   }, []);
+
+  async function onSubmitNextPage(link: string) {
+    const result = await getPage(link);
+    setProducts(result.items);
+    setLinks({
+      prev: result._links.prev,
+      self: result._links.self,
+      next: result._links.next,
+    })
+    setpage(page + 1)
+  }
+
+  async function onSubmitPrevPage(link: string){
+    const result = await getPage(link);
+    setProducts(result.items);
+    setLinks({
+      prev: result._links.prev,
+      self: result._links.self,
+      next: result._links.next,
+    })
+    setpage(page - 1)
+  }
 
   return (
     <Fragment>
@@ -47,7 +78,6 @@ export default function Home() {
             </NavLink>
             </Button>
           </div>
-  
         <Categories></Categories>
       </div>
     </Fragment>
