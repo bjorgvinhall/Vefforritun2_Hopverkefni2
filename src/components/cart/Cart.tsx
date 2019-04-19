@@ -76,7 +76,7 @@ export default function Cart(props: any) {
 
       <div className="cart__form">
         <div className="cart__form__top">
-          <span>Fjöldi:</span>
+          <span className="cart__form__number">Fjöldi:</span>
           <input className="cart__form__input" onChange={onChangeQuantity} type="number" min="1" value={quantity}></input>
           <Button
             onClick={updateCartHandler}

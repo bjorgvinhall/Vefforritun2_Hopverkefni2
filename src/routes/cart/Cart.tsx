@@ -16,8 +16,7 @@ export default function Cart() {
   const [cart, setCart] = useState([] as ICart[]);
   const [products, setProducts] = useState([] as IProduct[]);
   const [loading, setLoading] = useState(false);
-  const [empty, setEmpty] = useState(false)
-  const [total, setTotal] = useState(0)
+  const [total, setTotal] = useState(0);
   const [data, setData] = useState({ name: '', address: '' });
 
   useEffect(()=>{
@@ -25,11 +24,6 @@ export default function Cart() {
       setLoading(true);
       const items = await getCart();
       console.log(items);
-      if (items === null) {
-        console.log('Halallala');
-        
-        setEmpty(true);
-      }
       if (items !== null) {
         setCart(items.lines);
         setTotal(items.total)
@@ -56,9 +50,6 @@ export default function Cart() {
   async function onCartChange() {
     setLoading(true);
     const items = await getCart();
-    if (items === null) {
-      setEmpty(true);
-    }
     if (items !== null) {
       setCart(items.lines);
       setTotal(items.total)
@@ -79,13 +70,13 @@ export default function Cart() {
     );
   } 
   // skoða hvort karfan sé tóm
-  else if (empty) {
+  else if (total === 0) {
     return (
       <Fragment>
       <Helmet title="Karfa" />
       <div className="cart">
-        <h1>Karfan er tóm</h1>
-        <Link to="/" className="register__linkToLogin">Aftur á forsíðu</Link>
+        <h1>Engar vörur í körfu!</h1>
+        <Link to="/" className="register__linkToLogin">Skoða vörur</Link>
       </div>
     </Fragment>
     )
@@ -105,7 +96,7 @@ export default function Cart() {
             product={product}
           ></CartItem>
           ))}
-          <h3>Karfa samtals: {total} kr.-</h3>
+          <h3 className={'cart__total'}>Karfa samtals: {total} kr.-</h3>
         </div>
         <div className={'shipping'} >
           <h2 className={'shipping__header'}>Senda inn pöntun</h2>
