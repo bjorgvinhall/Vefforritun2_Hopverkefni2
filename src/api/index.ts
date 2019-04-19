@@ -240,6 +240,31 @@ export async function removeFromCart(id: number) {
   return response.ok;
 }
 
+export async function placeOrder(name: string, address: string) {
+  const options = {
+    body: JSON.stringify({
+      name,
+      address
+    }),
+    headers: {
+      'content-type': 'application/json',
+      'Authorization': `Bearer ${token}`,
+    },
+    method: 'POST',
+  };
+  
+  const url = new URL('/orders', baseurl);
+
+  const response = await fetch(url.href, options);
+  const result = await response.json();
+  console.log('Index', result);
+  
+  return {
+    success: response.ok,
+    result
+  }
+}
+
 export async function getOrders() {
   const options = {
     headers: {

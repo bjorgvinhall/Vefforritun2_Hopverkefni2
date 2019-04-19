@@ -7,17 +7,22 @@ import Input from '../../components/input/Input';
 import Button from '../../components/button/Button';
 import './Cart.scss';
 
-import { getProducts, getCart } from '../../api/index';
-import { IProduct, ICart } from '../../api/types';
+import { getProducts, getCart, placeOrder } from '../../api/index';
+import { IProduct, ICart, Ierrors } from '../../api/types';
 
 export default function Cart() {
   const username = localStorage.getItem('username');
 
   const [cart, setCart] = useState([] as ICart[]);
   const [products, setProducts] = useState([] as IProduct[]);
+  const [errors, setErrors] = useState([] as Ierrors[]);
+
   const [loading, setLoading] = useState(false);
   const [total, setTotal] = useState(0);
   const [data, setData] = useState({ name: '', address: '' });
+  const [registered, setRegistered] = useState(false);
+  const [cartMessage, setCartMessage] = useState('');
+  const [cartLoading, setCartLoading] = useState(false);
 
   useEffect(()=>{
     const foo = async () => {
@@ -43,7 +48,7 @@ export default function Cart() {
   function onChangeAddress(e: any){
     setData({
       ...data,
-      name: e.target.value,
+      address: e.target.value,
     });
   }
 
@@ -56,6 +61,23 @@ export default function Cart() {
     } 
     setLoading(false)
   }
+
+  async function onSubmit(){
+    setCartLoading(true);
+    setCartMessage('');
+    setErrors([]);
+    const result = await placeOrder(data.name, data.address);
+    console.log('Pöntun', result);
+    
+
+    if (!result.success) {
+      setErrors(result.result.errors);
+    } else {
+      setCartMessage('Pöntun send!')
+      setRegistered(true);
+    }
+    setCartLoading(false);
+  } 
   
   // skoða hvort notandi sé skráður inn
   if (!username) {
@@ -98,6 +120,15 @@ export default function Cart() {
           ))}
           <h3 className={'cart__total'}>Karfa samtals: {total} kr.-</h3>
         </div>
+
+        {errors && (
+          <ul className={'errors'}>
+            {errors && errors.map((error: any) => (
+              <li key={error.field} className={'errors__message'}>{error.field}, {error.error}</li>
+            ))}
+          </ul>
+        )}
+
         <div className={'shipping'} >
           <h2 className={'shipping__header'}>Senda inn pöntun</h2>
           <div className={'shipping__form'}>
@@ -112,7 +143,7 @@ export default function Cart() {
           </div>
           <div className="shipping__button">
             <Button 
-              // onClick={onSubmit}
+              onClick={onSubmit}
             >
               Senda inn pöntun
             </Button>
