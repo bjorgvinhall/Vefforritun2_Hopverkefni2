@@ -52,10 +52,6 @@
   color: #000;
 }
 
-.cart__price {
-  
-}
-
 .cart__form {
   width: 25%;
   display: flex;
@@ -66,13 +62,23 @@
 .cart__form__top {
   display: flex;
   flex-direction: row;
+  flex-wrap: wrap;
 
   margin: 1em 0;
 
-  span {
+  .cart__form__number {
     display: flex;
     align-items: center;
   }
+  
+}
+
+.cart__form__top__cartMessage {
+  display: flex;
+  
+  width: 100%;
+  margin-top: 1rem;
+  margin-bottom: 1rem;
 }
 
 .cart__form__input {
@@ -127,5 +133,11 @@
     button {
       margin-top: 0;
     }
+  }
+}
+
+@media (min-width:1340px) {
+  .cart__form__top__cartMessage {
+    margin-left: 1rem;
   }
 }

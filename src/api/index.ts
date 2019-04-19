@@ -240,6 +240,48 @@ export async function removeFromCart(id: number) {
   return response.ok;
 }
 
+export async function getOrders() {
+  const options = {
+    headers: {
+      'content-type': 'application/json',
+      'Authorization': `Bearer ${token}`,
+    },
+    method: 'GET',
+  };
+  
+  const url = new URL(`orders`, baseurl);
+  const response = await fetch(url.href, options);
+  
+  if (!response.ok) {
+    return null;
+  }
+
+  const result = await response.json();
+  
+  return result;
+}
+
+export async function getOrderInfo(id: number) { 
+  const options = {
+    headers: {
+      'content-type': 'application/json',
+      'Authorization': `Bearer ${token}`,
+    },
+    method: 'GET',
+  };
+
+  const url = new URL(`orders/${id}`, baseurl);
+  const response = await fetch(url.href, options);
+  
+  if (!response.ok) {
+    return null;
+  }
+
+  const result = await response.json();
+  
+  return result;
+}
+
 /**
  * Sækir upplýsingar um flokk
  * @param id númer flokks
@@ -261,14 +303,20 @@ export async function getCategoryDetails(id: number) {
  * @param id númer flokks
  */
 export async function searchInCategory(searchString: string, id: number) {
+  const options = {
+    headers: {
+      'content-type': 'application/json',
+    },
+    method: 'GET',
+  };
   const url = new URL(`products?search=${searchString}&category=${id}`, baseurl);
-  const response = await fetch(url.href);
-  if (!response.ok) {
-    return null;
-  }
+  const response = await fetch(url.href, options);
   const result = await response.json();
-  console.log('result í index: ' + JSON.stringify(result));
-  return result;
+  // console.log('result í index: ' + JSON.stringify(result));
+  return {
+    success: response.ok,
+    result
+  }
 }
 
 export {

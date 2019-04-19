@@ -1,22 +1,26 @@
 import React, { Fragment, useState, useEffect } from 'react';
 import { Redirect, Link } from 'react-router-dom';
 import './Category.scss';
+
 import { getProductsFromCat, getCategoryDetails, getCategory, searchInCategory } from '../../api/index';
+
 import { IProduct, ICategory, Ierrors } from '../../api/types';
 import Product from '../../components/product/Product';
-import Search from '../../components/search/Search';
 import Button from '../../components/button/Button';
 import Input from '../../components/input/Input';
 
 export default function Category(props: any) {
-  const { id } = props.match.params;
+  const { id, onClick } = props.match.params;
 
   const [errors, setErrors] = useState([] as Ierrors[]);
   const [category, setCategory] = useState({} as ICategory);
   const [products, setProducts] = useState([] as IProduct[]);
+  const [errors, setErrors] = useState([] as Ierrors[]);
+  const [data, setData] = useState({ searchString: '' });
   const [loading, setLoading] = useState(false);
   const [notFound, setNotFound] = useState(false);
   const [searchString, setSearchString] = useState('');
+
 
   useEffect(()=>{
     const foo = async () => {
@@ -48,6 +52,7 @@ export default function Category(props: any) {
     setProducts(result.items);
     setLoading(false);
   }
+
  
   async function onSubmitPrev(){
     // todo
@@ -58,7 +63,7 @@ export default function Category(props: any) {
   }
 
   async function searchInCat(){
-    // setProducts() og það sem Search klasinn skilar hér inní!
+    // setProducts(x) og x = það sem Search klasinn skilar hér inní!
   }
 
   /*onFetchData={(pageSize, pageIndex)} => {

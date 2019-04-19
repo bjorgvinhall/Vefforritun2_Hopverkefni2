@@ -1,28 +1,67 @@
-import React, { Fragment } from 'react';
+import React, { Fragment, useState, useEffect } from 'react';
 import { Link } from 'react-router-dom'
 import Helmet from 'react-helmet';
 
 import './Orders.scss';
 
-export default function Order() {
+import { getOrderInfo } from '../../api/index';
+import { IOrder } from '../../api/types';
+
+export default function Order(props: any) {
+  const username = localStorage.getItem('username');
+  const { id } = props.match.params;
+  let information = [];
+
+  const { onClick } = props;
+
+  const [loading, setLoading] = useState(false);
+  const [empty, setEmpty] = useState(false);
+  const [order, setOrder] = useState([] as IOrder[]);
+  const [total, setTotal] = useState(0);
+  const [name, setName] = useState('');
+  const [address, setAddress] = useState('');
+  const [created, setCreated] = useState('');
+
+  useEffect(()=>{
+    const foo = async () => {
+      setLoading(true);
+      const items = await getOrderInfo(id);
+      console.log('Items:', items);
+      information = items;
+      if (items !== null) {
+        console.log('Lines:', items.lines);
+        
+        setOrder(items.lines);
+        setTotal(items.total);
+        setName(items.name);
+        setAddress(items.address);
+        setCreated(items.created);
+      }
+      setLoading(false)
+    };
+    foo();
+  }, []);
 
   return (
     <Fragment>
       <Helmet title="Pantanir" />
       <div className="orders">
-        <h1 className="orders__title" >Pöntun #{}</h1>
+        {loading && (
+          <h2>Sæki vörur...</h2>
+        )}
+        <h1 className="orders__title" >Pöntun #{id}</h1>
         <div className="order__info">
           <div className="order__info__item">
             <p>Nafn</p>
-            <p>{}</p>
+            <p>{name}</p>
           </div>
           <div className="order__info__item">
             <p>Heimilisfang</p>
-            <p>{}</p>
+            <p>{address}</p>
           </div>
           <div className="order__info__item">
             <p>Búin til</p>
-            <p>{}</p>
+            <p>{created}</p>
           </div>
         </div>
         <div className="orders__table">
@@ -36,12 +75,20 @@ export default function Order() {
               </tr>
             </thead>
             <tbody className="table__body">
-              <tr>
+              {username && order.map((orderItem) => (
+                <tr className="table__body__row">
+                  <td className="table__body__item">{orderItem.title}</td>
+                  <td className="table__body__item">{orderItem.price}</td>
+                  <td className="table__body__item">{orderItem.quantity}</td>
+                  <td className="table__body__item">{orderItem.total}</td>
+                </tr>
+              ))}
+              <tr className="table__body__total">
                 <td className="table__body__item">{}</td>
                 <td className="table__body__item">{}</td>
                 <td className="table__body__item">{}</td>
-                <td className="table__body__item">{}</td>
-              </tr>
+                <td className="table__body__item">{total} kr.-</td>
+                </tr>
             </tbody>        
           </table>        
         </div>

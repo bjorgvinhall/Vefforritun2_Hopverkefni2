@@ -18,7 +18,7 @@
   
 }
 
-tr:nth-child(even) {
+.table__body__row:nth-child(even) {
   background: #ccc;
 }
 
@@ -34,6 +34,16 @@ tr:nth-child(even) {
 
 td, th {
   padding: 4px;
+}
+
+.table__body__link {
+  text-decoration: none;
+  color: #000
+}
+
+.table__body__total {
+  font-weight: 700;
+  background: #fff;
 }
 
 .order__info {

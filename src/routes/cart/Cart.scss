@@ -7,6 +7,11 @@
   flex-direction: column;
 }
 
+.cart__total {
+  margin-top: 2rem;
+  padding-left: 75%;
+}
+
 .shipping {
   margin: 2rem; 
 }
@@ -18,4 +23,11 @@
 
 .shipping__button {
   margin-top: 1rem; 
+}
+
+@media (max-width:1000px) {
+  .cart__total {
+    padding-left: 0;
+    margin: 2rem 1rem;
+  }
 }
