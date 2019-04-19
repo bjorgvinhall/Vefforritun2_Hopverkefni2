@@ -32,6 +32,7 @@ export default function Category(props: any) {
       setCategory(category);
       const itemsFromCat = await getCategory(id, 12);
       setProducts(itemsFromCat.items);
+      console.log(itemsFromCat._links)
       setLinks({
         prev: itemsFromCat._links.prev,
         self: itemsFromCat._links.self,
@@ -58,7 +59,7 @@ export default function Category(props: any) {
   }
 
   async function onSubmitNextPage(link: string) {
-    const result = await getPage(link);
+    const result = await getPage(link, id);
     setProducts(result.items);
     setLinks({
       prev: result._links.prev,
@@ -69,7 +70,7 @@ export default function Category(props: any) {
   }
 
   async function onSubmitPrevPage(link: string){
-    const result = await getPage(link);
+    const result = await getPage(link, id);
     setProducts(result.items);
     setLinks({
       prev: result._links.prev,
