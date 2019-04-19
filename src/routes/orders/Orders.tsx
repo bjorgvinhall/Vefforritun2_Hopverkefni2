@@ -7,8 +7,10 @@ import './Orders.scss';
 import { getOrders } from '../../api/index';
 import { IOrders } from '../../api/types';
 
-export default function Orders() {
+export default function Orders(props: any) {
   const username = localStorage.getItem('username');
+
+  const { onClick } = props;
 
   const [loading, setLoading] = useState(false);
   const [empty, setEmpty] = useState(false);
@@ -18,7 +20,6 @@ export default function Orders() {
     const foo = async () => {
       setLoading(true);
       const items = await getOrders();
-      console.log('Orders:', items);
       if (items !== null) {
         setOrders(items.items);
       } 
@@ -29,6 +30,10 @@ export default function Orders() {
     };
     foo();
   }, []);
+
+  function klikk(e: any, id: number){
+    if(onClick) onClick(id);
+  }
 
   if (!username) {
     return (
@@ -48,7 +53,7 @@ export default function Orders() {
         {loading && (
           <h2>Sæki vörur...</h2>
         )}
-        <h1 className="orders__title" >Þínar pantanir</h1>
+        <h1 className="orders__title">Þínar pantanir</h1>
 
         <div className="orders__table">
           <table className="table">
@@ -63,7 +68,7 @@ export default function Orders() {
             <tbody className="table__body">
               {username && orders.map((order) => (
                 <tr>
-                  <td className="table__body__item">Pöntun #{order.id}</td>
+                  <td className="table__body__item"><Link to={`/orders/${order.id}`} onClick={(e: any) => klikk(e, order.id)} className="table__body__link">Pöntun #{order.id}</Link></td>
                   <td className="table__body__item">{order.name}</td>
                   <td className="table__body__item">{order.address}</td>
                   <td className="table__body__item">{order.created}</td>
