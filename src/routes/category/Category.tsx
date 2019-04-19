@@ -12,7 +12,6 @@ import Input from '../../components/input/Input';
 export default function Category(props: any) {
   const { id, onClick } = props.match.params;
 
-  const [errors, setErrors] = useState([] as Ierrors[]);
   const [category, setCategory] = useState({} as ICategory);
   const [products, setProducts] = useState([] as IProduct[]);
   const [errors, setErrors] = useState([] as Ierrors[]);
@@ -47,9 +46,9 @@ export default function Category(props: any) {
     const result = await searchInCategory(searchString, id);
 
     if (!result.success) {
-      setErrors(result.errors);
+      setErrors(result.result.errors);
     }
-    setProducts(result.items);
+    setProducts(result.result.items);
     setLoading(false);
   }
 
