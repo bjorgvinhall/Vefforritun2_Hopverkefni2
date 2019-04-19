@@ -4,3 +4,10 @@
     max-width: $max-width;
     margin: 2rem 1rem;
 }
+.products__pages {
+    display: flex;
+}
+
+.products__currentPage {
+    margin: 0.5rem 1rem;
+}
