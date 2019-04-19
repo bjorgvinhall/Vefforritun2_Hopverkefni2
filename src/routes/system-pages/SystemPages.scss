@@ -1,4 +1,16 @@
 @import '../../config.scss';
 
 .system-page {
+  max-width: $max-width;
+  margin: 2rem 1rem;
+
+}
+
+.system-page__title {
+  margin: 1rem 0;
+}
+
+.system-page__link {
+  text-decoration: none;
+  color: #000;
 }
