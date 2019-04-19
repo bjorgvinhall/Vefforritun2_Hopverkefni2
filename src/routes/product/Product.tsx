@@ -5,7 +5,6 @@ import { getProductDetails, getProductsFromCat, addToCart } from '../../api/inde
 import { IProduct } from '../../api/types';
 import Button from '../../components/button/Button';
 import Product from '../../components/product/Product'
-import { appendFileSync } from 'fs';
 
 export default function ProductRoute(props: any) {
   const { id } = props.match.params
@@ -42,7 +41,6 @@ export default function ProductRoute(props: any) {
     const item: IProduct = await getProductDetails(i);
     setDetails(item);
     setLoading(false);
-    window.location.reload();
   }
 
   function onChangeQuantity(e: any) {
