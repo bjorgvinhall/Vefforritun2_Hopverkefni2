@@ -37,6 +37,21 @@ export interface IOrders {
   updated?: Date;
 }
 
+export interface IOrder {
+  id: number; 
+  quantity: number; 
+  product_id: number;
+  title: string;
+  price: number;
+  description: string;
+  image: string;
+  category_id: number;
+  category_title: string;
+  total: number;
+  created?: Date;
+  updated?: Date; 
+}
+
 export interface Ierrors {
   field: string;
   error: string;
