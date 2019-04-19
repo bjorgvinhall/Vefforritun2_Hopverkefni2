@@ -20,7 +20,7 @@ export default function Cart() {
   const [loading, setLoading] = useState(false);
   const [total, setTotal] = useState(0);
   const [data, setData] = useState({ name: '', address: '' });
-  const [registered, setRegistered] = useState(false);
+  const [orderPlaced, setOrderPlaced] = useState(false);
   const [cartMessage, setCartMessage] = useState('');
   const [cartLoading, setCartLoading] = useState(false);
 
@@ -74,7 +74,7 @@ export default function Cart() {
       setErrors(result.result.errors);
     } else {
       setCartMessage('Pöntun send!')
-      setRegistered(true);
+      setOrderPlaced(true);
     }
     setCartLoading(false);
   } 
@@ -102,7 +102,22 @@ export default function Cart() {
       </div>
     </Fragment>
     )
-  } else {
+  }
+  // skoða hvort pöntun hafi verið send
+  else if (orderPlaced) {
+    return (
+      <Fragment>
+      <Helmet title="Karfa" />
+      <div className="cart">
+        {cartMessage && (
+          <h1>{cartMessage}</h1>
+        )}
+        <Link to="/" className="register__linkToLogin">Skoða fleiri vörur</Link>
+      </div>
+      </Fragment>
+    )
+  }
+  else {
     return (
       <Fragment>
         <Helmet title="Karfa" />
