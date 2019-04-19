@@ -17,6 +17,10 @@
   
 }
 
+.cart__item--deleted {
+  display: none;
+}
+
 .cart__card {
   display: flex;
   flex-direction: row;

@@ -21,6 +21,7 @@ export default function ProductRoute(props: any) {
   // Sækir upplýsingar um vöru og vörur í sama flokki
   useEffect(()=>{
     const foo = async () => {
+      setCartMessage('')
       setLoading(true);
       const item: IProduct = await getProductDetails(id);
       if(item === null){
@@ -36,6 +37,7 @@ export default function ProductRoute(props: any) {
   }, []);
 
   async function onClickHandler(i: number) {
+    setCartMessage('');
     setLoading(true);
     const item: IProduct = await getProductDetails(i);
     setDetails(item);
@@ -56,7 +58,7 @@ export default function ProductRoute(props: any) {
     }
     const result = await addToCart(details.id, quantity)
     if(result.success){
-      setCartMessage(`${quantity} vöru(m) bætt við!`);
+      setCartMessage(`${quantity} ${quantity == 1 ? 'vöru' : 'vörum'} bætt við!`);
     } else {
       setCartMessage('Villa kom upp')
     }
