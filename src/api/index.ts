@@ -304,14 +304,20 @@ export async function getCategoryDetails(id: number) {
  * @param id númer flokks
  */
 export async function searchInCategory(searchString: string, id: number) {
+  const options = {
+    headers: {
+      'content-type': 'application/json',
+    },
+    method: 'GET',
+  };
   const url = new URL(`products?search=${searchString}&category=${id}`, baseurl);
-  const response = await fetch(url.href);
-  if (!response.ok) {
-    return null;
-  }
+  const response = await fetch(url.href, options);
   const result = await response.json();
-  console.log('result í index: ' + JSON.stringify(result));
-  return result;
+  // console.log('result í index: ' + JSON.stringify(result));
+  return {
+    success: response.ok,
+    result
+  }
 }
 
 export {

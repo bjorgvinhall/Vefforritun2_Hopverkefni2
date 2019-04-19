@@ -41,7 +41,7 @@ export default function Search(props: any) {
     setErrors([]);
     const result = await searchInCategory(data.searchString, id);
     console.log('result í search.tsx: ' + result);
-
+/*
     if (!result.success) {
       setErrors(result.errors);
     } else {
@@ -49,6 +49,7 @@ export default function Search(props: any) {
     }
     setProducts(result.items);
     setLoading(false);
+    */
   }
 
   function onSearch(e: any){
