@@ -5,24 +5,6 @@ const baseurl:string | undefined = process.env.REACT_APP_API_URL;
 // Sækir token úr localstorage, ef ekki til þá tómistrengurinn
 const token = localStorage.getItem('token') || '';
 
-// Hægt að senda tokenið svona
-export async function test() {
-  const options = {
-    headers: {
-      'content-type': 'application/json',
-      'Authorization': `Bearer ${token}`,
-    },
-    method: 'GET',
-  };
-  const url = new URL('/cart', baseurl);
-
-  const response = await fetch(url.href, options);
-  const result = await response.json();
-  return {
-    success: response.ok,
-    result
-  }
-}
 
 /**
  * Sækir vörur fyrir forsíðu
@@ -98,8 +80,8 @@ export async function getCategory(id: number, limit: number) {
  * @param limit hve margar vörur á að sækja
  * 
  */
-export async function getPage(link: any) {
-  const response = await fetch(link.href);
+export async function getPage(link: any, id: number) {
+  const response = await fetch(`${link.href}&category=${id}`);
   if (!response.ok) {
     return null;
   }
