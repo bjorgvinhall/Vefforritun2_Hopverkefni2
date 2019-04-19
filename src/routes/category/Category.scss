@@ -1,2 +1,13 @@
 @import '../../config.scss';
 
+.page__form {
+    display: flex;
+    flex-flow: row;
+    align-items: center;
+    align-content: space-between;
+}
+
+.page__form p {
+    padding-right: 1rem;
+    padding-left: 1rem;
+}
