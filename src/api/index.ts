@@ -236,7 +236,6 @@ export async function removeFromCart(id: number) {
 
   const url = new URL(`cart/line/${id}`, baseurl);
   const response = await fetch(url.href, options);
-  console.log(response.ok)
 
   return response.ok;
 }

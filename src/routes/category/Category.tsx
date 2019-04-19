@@ -1,19 +1,22 @@
 import React, { Fragment, useState, useEffect } from 'react';
-import { Redirect } from 'react-router-dom';
+import { Redirect, Link } from 'react-router-dom';
 import './Category.scss';
-import { getProductsFromCat, getCategoryDetails, getCategory } from '../../api/index';
-import { IProduct, ICategory } from '../../api/types';
+import { getProductsFromCat, getCategoryDetails, getCategory, searchInCategory } from '../../api/index';
+import { IProduct, ICategory, Ierrors } from '../../api/types';
 import Product from '../../components/product/Product';
 import Search from '../../components/search/Search';
 import Button from '../../components/button/Button';
+import Input from '../../components/input/Input';
 
 export default function Category(props: any) {
   const { id } = props.match.params;
 
+  const [errors, setErrors] = useState([] as Ierrors[]);
   const [category, setCategory] = useState({} as ICategory);
   const [products, setProducts] = useState([] as IProduct[]);
   const [loading, setLoading] = useState(false);
   const [notFound, setNotFound] = useState(false);
+  const [searchString, setSearchString] = useState('');
 
   useEffect(()=>{
     const foo = async () => {
@@ -30,6 +33,21 @@ export default function Category(props: any) {
     };
     foo();
   }, []);
+
+  function onSearch(e: any) {
+    setSearchString(e.target.value)
+  }
+
+  async function onSubmit() {
+    setLoading(true);
+    const result = await searchInCategory(searchString, id);
+
+    if (!result.success) {
+      setErrors(result.errors);
+    }
+    setProducts(result.items);
+    setLoading(false);
+  }
  
   async function onSubmitPrev(){
     // todo
@@ -60,11 +78,31 @@ export default function Category(props: any) {
     <Fragment>
       <div className="home">
         <h1>{category.title}</h1>
-        <Search
+        {/* <Search
           onClick={searchInCat}
           id={category.id}
-          ></Search>
-
+          ></Search> */}
+        <div className={'search__wrapper'}>
+        {errors && (
+          <div className={'errors'}>
+            {errors && errors.map((error: any) => (
+              <p key={error.field} className={'errors__message'}>{error.field}, {error.error}</p>
+            ))}
+          </div>
+        )}
+        <div className="search__form">
+          <Input
+            label={'Leita:'}
+            onChange={onSearch}>
+          </Input>
+          <div className="search__button">
+            <Button 
+            onClick={onSubmit}
+            >Leita
+            </Button>
+          </div>
+        </div>
+      </div>
         <div className="products">
           {loading && (
             <h2>Sæki vörur...</h2>
