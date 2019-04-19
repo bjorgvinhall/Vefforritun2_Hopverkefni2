@@ -28,6 +28,15 @@ export interface ICart {
   updated?: Date;
 }
 
+export interface IOrders {
+  id: number;
+  name: string;
+  address: string;
+  user_id: number;
+  created?: Date;
+  updated?: Date;
+}
+
 export interface Ierrors {
   field: string;
   error: string;

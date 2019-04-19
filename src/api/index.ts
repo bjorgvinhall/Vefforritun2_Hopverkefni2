@@ -241,6 +241,27 @@ export async function removeFromCart(id: number) {
   return response.ok;
 }
 
+export async function getOrders() {
+  const options = {
+    headers: {
+      'content-type': 'application/json',
+      'Authorization': `Bearer ${token}`,
+    },
+    method: 'GET',
+  };
+  
+  const url = new URL(`orders`, baseurl);
+  const response = await fetch(url.href, options);
+  
+  if (!response.ok) {
+    return null;
+  }
+
+  const result = await response.json();
+  
+  return result;
+}
+
 /**
  * Sækir upplýsingar um flokk
  * @param id númer flokks

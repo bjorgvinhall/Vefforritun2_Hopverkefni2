@@ -1,11 +1,34 @@
-import React, { Fragment } from 'react';
+import React, { Fragment, useState, useEffect } from 'react';
 import { Link } from 'react-router-dom'
 import Helmet from 'react-helmet';
 
 import './Orders.scss';
 
+import { getOrders } from '../../api/index';
+import { IOrders } from '../../api/types';
+
 export default function Orders() {
   const username = localStorage.getItem('username');
+
+  const [loading, setLoading] = useState(false);
+  const [empty, setEmpty] = useState(false);
+  const [orders, setOrders] = useState([] as IOrders[]);
+
+  useEffect(()=>{
+    const foo = async () => {
+      setLoading(true);
+      const items = await getOrders();
+      console.log('Orders:', items);
+      if (items !== null) {
+        setOrders(items.items);
+      } 
+      if (items.items.length === 0) {
+        setEmpty(true);
+      }
+      setLoading(false)
+    };
+    foo();
+  }, []);
 
   if (!username) {
     return (
@@ -22,6 +45,9 @@ export default function Orders() {
     <Fragment>
       <Helmet title="Pantanir" />
       <div className="orders">
+        {loading && (
+          <h2>Sæki vörur...</h2>
+        )}
         <h1 className="orders__title" >Þínar pantanir</h1>
 
         <div className="orders__table">
@@ -35,12 +61,14 @@ export default function Orders() {
               </tr>
             </thead>
             <tbody className="table__body">
-              <tr>
-                <td className="table__body__item"></td>
-                <td className="table__body__item"></td>
-                <td className="table__body__item"></td>
-                <td className="table__body__item"></td>
-              </tr>
+              {username && orders.map((order) => (
+                <tr>
+                  <td className="table__body__item">Pöntun #{order.id}</td>
+                  <td className="table__body__item">{order.name}</td>
+                  <td className="table__body__item">{order.address}</td>
+                  <td className="table__body__item">{order.created}</td>
+                </tr>
+              ))}
             </tbody>        
           </table>        
         </div>
