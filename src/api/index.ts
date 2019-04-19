@@ -89,7 +89,7 @@ export async function getCategory(id: number, limit: number) {
   
   const result = await response.json();
   
-  return result.items;
+  return result;
 }
 
 /**
