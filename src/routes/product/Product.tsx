@@ -63,7 +63,7 @@ export default function ProductRoute(props: any) {
       setCartMessage('Villa kom upp')
     }
     setCartLoading(false);
-    setQuantity(0)
+    setQuantity(1)
   }
 
   if(notFound) return(
@@ -92,7 +92,7 @@ export default function ProductRoute(props: any) {
         {username && !cartLoading && (
           <div className="details__lower">
             <span>Fjöldi</span>
-            <input className="details__input" onChange={onChangeQuantity} type="number" min="1" value="1"></input>
+            <input className="details__input" onChange={onChangeQuantity} type="number" min="1" value={quantity}></input>
             <Button
               onClick={addToCartHandler}
               small={true}
