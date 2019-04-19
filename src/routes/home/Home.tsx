@@ -1,7 +1,9 @@
 import React, { Fragment, useState, useEffect } from 'react';
 import Helmet from 'react-helmet';
+import { NavLink } from 'react-router-dom';
 
 import Product from '../../components/product/Product';
+import Button from '../../components/button/Button';
 import Categories from '../categories/Categories';
 import './Home.scss';
 
@@ -69,30 +71,20 @@ export default function Home() {
             ></Product>
           ))}
         </div>
-        <div className="products__pages">
-          {links.prev && (
-              <div className="search__button">
-              <Button 
-                onClick={() => { onSubmitPrevPage(links.prev)}}
-                >Fyrri síða
-              </Button>
-            </div>
-          )}
-          <p className="products__currentPage">Síða {page}</p>
-          {links.next && (
-            <div className="search__button">
-              <Button 
-                onClick={() => { onSubmitNextPage(links.next)}}
-                >Næsta síða
-              </Button>
-            </div>
-          )}
-        </div>
+
+        <div className="search__button">
+            <Button
+            ><NavLink className="header__link" activeClassName="header__link--selected" exact to="/categories">Skoða alla flokka
+            </NavLink>
+            </Button>
+          </div>
         <Categories></Categories>
       </div>
     </Fragment>
   );
 }
+
+// <NavLink className="header__link" activeClassName="header__link--selected" exact to="/categories">Flokkar</NavLink>
 
 // {data.map((i: any ) => {
 //   <Product
