@@ -56,6 +56,11 @@ export default function Category(props: any) {
       setErrors(result.result.errors);
     }
     setProducts(result.result.items);
+    setLinks({
+      prev: result.result._links.prev,
+      self: result.result._links.self,
+      next: result.result._links.next,
+    })
     setLoading(false);
     setpage(1);
   }
