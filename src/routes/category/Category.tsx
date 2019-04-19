@@ -1,7 +1,9 @@
 import React, { Fragment, useState, useEffect } from 'react';
 import { Redirect, Link } from 'react-router-dom';
 import './Category.scss';
-import { getCategoryDetails, getCategory, searchInCategory } from '../../api/index';
+
+import { getProductsFromCat, getCategoryDetails, getCategory, searchInCategory } from '../../api/index';
+
 import { IProduct, ICategory, Ierrors } from '../../api/types';
 import Product from '../../components/product/Product';
 import Button from '../../components/button/Button';
@@ -10,13 +12,15 @@ import Input from '../../components/input/Input';
 export default function Category(props: any) {
   const { id, onClick } = props.match.params;
 
+  const [errors, setErrors] = useState([] as Ierrors[]);
   const [category, setCategory] = useState({} as ICategory);
   const [products, setProducts] = useState([] as IProduct[]);
   const [errors, setErrors] = useState([] as Ierrors[]);
   const [data, setData] = useState({ searchString: '' });
   const [loading, setLoading] = useState(false);
   const [notFound, setNotFound] = useState(false);
-  const [searched, setSearched] = useState(false);
+  const [searchString, setSearchString] = useState('');
+
 
   useEffect(()=>{
     const foo = async () => {
@@ -34,32 +38,21 @@ export default function Category(props: any) {
     foo();
   }, []);
 
-  async function onSubmitSearch(){
+  function onSearch(e: any) {
+    setSearchString(e.target.value)
+  }
+
+  async function onSubmit() {
     setLoading(true);
-    setErrors([]);
-    const result = await searchInCategory(data.searchString, id);
-    console.log('result í search.tsx: ' + result);
-    console.log('result.success: ' + (result.success));
+    const result = await searchInCategory(searchString, id);
 
     if (!result.success) {
-      setErrors(result.result.errors);
-    } else {
-      setSearched(true);
+      setErrors(result.errors);
     }
-    console.log('products út frá search bbyyyyy: ' + JSON.stringify(result.result.items));
-    setProducts(result.result.items);
+    setProducts(result.items);
     setLoading(false);
-    setNotFound(false);
   }
 
-  function onSearch(e: any){
-    setData({
-      ...data,
-      searchString: e.target.value,
-    });
-  }
-  console.log('searchString: ' + data.searchString);
-  console.log('category.title: ' + category.title);
  
   async function onSubmitPrev(){
     // todo
@@ -90,7 +83,10 @@ export default function Category(props: any) {
     <Fragment>
       <div className="home">
         <h1>{category.title}</h1>
-
+        {/* <Search
+          onClick={searchInCat}
+          id={category.id}
+          ></Search> */}
         <div className={'search__wrapper'}>
         {errors && (
           <div className={'errors'}>
@@ -100,21 +96,18 @@ export default function Category(props: any) {
           </div>
         )}
         <div className="search__form">
-        <Input
-          label={'Leita:'}
-          onChange={onSearch}>
-        </Input>
-        <Link to={`/products?search=${data.searchString}&category=${category.id}`} className="categorySearch" style={{ textDecoration: 'none', color: '#000' }}>
+          <Input
+            label={'Leita:'}
+            onChange={onSearch}>
+          </Input>
           <div className="search__button">
             <Button 
-            onClick={onSubmitSearch}
+            onClick={onSubmit}
             >Leita
             </Button>
           </div>
-        </Link>
         </div>
       </div>
-
         <div className="products">
           {loading && (
             <h2>Sæki vörur...</h2>
