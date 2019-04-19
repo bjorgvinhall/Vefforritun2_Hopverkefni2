@@ -2,7 +2,7 @@ import React, { Fragment, useState, useEffect } from 'react';
 import { Redirect, Link } from 'react-router-dom';
 import './Category.scss';
 
-import { getProductsFromCat, getCategoryDetails, getCategory, searchInCategory } from '../../api/index';
+import { getCategoryDetails, getCategory, searchInCategory } from '../../api/index';
 
 import { IProduct, ICategory, Ierrors } from '../../api/types';
 import Product from '../../components/product/Product';
@@ -10,16 +10,15 @@ import Button from '../../components/button/Button';
 import Input from '../../components/input/Input';
 
 export default function Category(props: any) {
-  const { id, onClick } = props.match.params;
+  const { id } = props.match.params;
 
   const [category, setCategory] = useState({} as ICategory);
   const [products, setProducts] = useState([] as IProduct[]);
   const [errors, setErrors] = useState([] as Ierrors[]);
-  const [data, setData] = useState({ searchString: '' });
   const [loading, setLoading] = useState(false);
   const [notFound, setNotFound] = useState(false);
   const [searchString, setSearchString] = useState('');
-
+  const [page, setPage] = useState(1);
 
   useEffect(()=>{
     const foo = async () => {
@@ -30,8 +29,9 @@ export default function Category(props: any) {
         return;
       }
       setCategory(category);
-      const itemsFromCat = await getCategory(id, 100);
-      setProducts(itemsFromCat);
+      const itemsFromCat = await getCategory(id, 3);
+			console.log("TCL: foo -> itemsFromCat", itemsFromCat)
+      setProducts(itemsFromCat.items);
       setLoading(false)
     };
     foo();
@@ -52,22 +52,13 @@ export default function Category(props: any) {
     setLoading(false);
   }
 
- 
-  async function onSubmitPrev(){
-    // todo
+  async function onSubmitPage(newPage: number) {
+    const categ = await getCategory(id, 3);
+    const nextPage = categ._links.next.href;
+    const nextPageItems = nextPage.items;
+    setProducts(nextPageItems);
+    setPage(page + newPage);
   }
-
-  async function onSubmitNext(){
-    // todo
-  }
-
-  async function searchInCat(){
-    // setProducts(x) og x = það sem Search klasinn skilar hér inní!
-  }
-
-  /*onFetchData={(pageSize, pageIndex)} => {
-    // til að fá út blaðsíðunúmer
-  } */
 
   if(notFound) return(
     <Redirect to="/notFound"></Redirect>
@@ -82,10 +73,6 @@ export default function Category(props: any) {
     <Fragment>
       <div className="home">
         <h1>{category.title}</h1>
-        {/* <Search
-          onClick={searchInCat}
-          id={category.id}
-          ></Search> */}
         <div className={'search__wrapper'}>
         {errors && (
           <div className={'errors'}>
@@ -119,26 +106,23 @@ export default function Category(props: any) {
             ></Product>
           ))}
         </div>
-
         <div className="page__form">
-          <div className="search__button">
+        {page > 1 && (
+            <div className="search__button">
             <Button 
-              onClick={onSubmitPrev}
+              onClick={() => { onSubmitPage(-1)}}
               >Fyrri síða
             </Button>
           </div>
-
-          <p>Síða 1</p>
-
+        )}
+          <p>Síða {page}</p>
           <div className="search__button">
             <Button 
-              onClick={onSubmitNext}
+              onClick={() => { onSubmitPage(1)}}
               >Næsta síða
             </Button>
           </div>
-
        </div>
-
       </div>
   </Fragment>
   );
