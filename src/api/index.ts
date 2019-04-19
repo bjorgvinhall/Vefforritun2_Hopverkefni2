@@ -201,7 +201,7 @@ async function getCart() {
 }
 
 export async function updateCart(id: number, quantity: number) {
-  console.log('Blessaður!');
+  console.log('Blessaður!', id, quantity);
   
   const options = {
     body: JSON.stringify({
@@ -214,7 +214,7 @@ export async function updateCart(id: number, quantity: number) {
     method: 'PATCH',
   };
 
-  const url = new URL(`cart/lines/${id}`, baseurl);
+  const url = new URL(`cart/line/${id}`, baseurl);
 
   const response = await fetch(url.href, options);
   const result = await response.json();
@@ -234,17 +234,11 @@ export async function removeFromCart(id: number) {
     method: 'DELETE',
   };
 
-  const url = new URL(`cart/lines/${id}`, baseurl);
+  const url = new URL(`cart/line/${id}`, baseurl);
   const response = await fetch(url.href, options);
+  console.log(response.ok)
 
-  if (!response.ok) {
-    return null;
-  }
-
-  const result = await response.json();
-  
-  return result;
-
+  return response.ok;
 }
 
 /**

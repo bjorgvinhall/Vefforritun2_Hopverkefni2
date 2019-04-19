@@ -17,6 +17,7 @@ export default function Cart() {
   const [products, setProducts] = useState([] as IProduct[]);
   const [loading, setLoading] = useState(false);
   const [empty, setEmpty] = useState(false)
+  const [total, setTotal] = useState(0)
   const [data, setData] = useState({ name: '', address: '' });
 
   useEffect(()=>{
@@ -24,13 +25,14 @@ export default function Cart() {
       setLoading(true);
       const items = await getCart();
       console.log(items);
-      if (items.lines.length === 0) {
+      if (items === null) {
         console.log('Halallala');
         
         setEmpty(true);
       }
       if (items !== null) {
         setCart(items.lines);
+        setTotal(items.total)
       } 
       setLoading(false)
     };
@@ -49,6 +51,19 @@ export default function Cart() {
       ...data,
       name: e.target.value,
     });
+  }
+
+  async function onCartChange() {
+    setLoading(true);
+    const items = await getCart();
+    if (items === null) {
+      setEmpty(true);
+    }
+    if (items !== null) {
+      setCart(items.lines);
+      setTotal(items.total)
+    } 
+    setLoading(false)
   }
   
   // skoða hvort notandi sé skráður inn
@@ -84,11 +99,13 @@ export default function Cart() {
           )}
           {username && cart.map((product) => (
             <CartItem
+            onChange={onCartChange}
             onClick={null}
             key={product.id}
             product={product}
           ></CartItem>
           ))}
+          <h3>Karfa samtals: {total} kr.-</h3>
         </div>
         <div className={'shipping'} >
           <h2 className={'shipping__header'}>Senda inn pöntun</h2>
