@@ -2,9 +2,6 @@ import { IProduct } from './types';
 import 'isomorphic-fetch';
 const baseurl:string | undefined = process.env.REACT_APP_API_URL;
 
-// Sækir token úr localstorage, ef ekki til þá tómistrengurinn
-const token = localStorage.getItem('token') || '';
-
 
 /**
  * Sækir vörur fyrir forsíðu
@@ -112,6 +109,8 @@ export async function getProductsFromCat(id: number, limit: number) {
 }
 
 export async function addToCart(product: number, quantity: number) {
+  // Sækir token úr localstorage, ef ekki til þá tómistrengurinn
+  const token = localStorage.getItem('token') || '';
   const options = {
     body: JSON.stringify({
       product, 
@@ -178,7 +177,8 @@ export async function loginUser(username: any, password: any) {
 }
 
 async function getCart() {
-
+  // Sækir token úr localstorage, ef ekki til þá tómistrengurinn
+  const token = localStorage.getItem('token') || '';
   const options = {
     headers: {
       'content-type': 'application/json',
@@ -200,7 +200,8 @@ async function getCart() {
 }
 
 export async function updateCart(id: number, quantity: number) {
-  console.log('Blessaður!', id, quantity);
+  // Sækir token úr localstorage, ef ekki til þá tómistrengurinn
+  const token = localStorage.getItem('token') || '';
   
   const options = {
     body: JSON.stringify({
@@ -225,6 +226,8 @@ export async function updateCart(id: number, quantity: number) {
 }
 
 export async function removeFromCart(id: number) {
+  // Sækir token úr localstorage, ef ekki til þá tómistrengurinn
+  const token = localStorage.getItem('token') || '';
   const options = {
     headers: {
       'content-type': 'application/json',
@@ -240,6 +243,8 @@ export async function removeFromCart(id: number) {
 }
 
 export async function placeOrder(name: string, address: string) {
+  // Sækir token úr localstorage, ef ekki til þá tómistrengurinn
+  const token = localStorage.getItem('token') || '';
   const options = {
     body: JSON.stringify({
       name,
@@ -265,6 +270,8 @@ export async function placeOrder(name: string, address: string) {
 }
 
 export async function getOrders() {
+  // Sækir token úr localstorage, ef ekki til þá tómistrengurinn
+  const token = localStorage.getItem('token') || '';
   const options = {
     headers: {
       'content-type': 'application/json',
@@ -286,6 +293,8 @@ export async function getOrders() {
 }
 
 export async function getOrderInfo(id: number) { 
+  // Sækir token úr localstorage, ef ekki til þá tómistrengurinn
+  const token = localStorage.getItem('token') || '';
   const options = {
     headers: {
       'content-type': 'application/json',
