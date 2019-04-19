@@ -22,8 +22,30 @@ export default function Orders() {
     <Fragment>
       <Helmet title="Pantanir" />
       <div className="orders">
-        <p>orders</p>
+        <h1 className="orders__title" >Þínar pantanir</h1>
+
+        <div className="orders__table">
+          <table className="table">
+            <thead className="table__head">
+              <tr>
+                <th className="table__head__item">Pöntun</th>
+                <th className="table__head__item">Nafn</th>
+                <th className="table__head__item">Heimilsfang</th>
+                <th className="table__head__item">Búin til</th>
+              </tr>
+            </thead>
+            <tbody className="table__body">
+              <tr>
+                <td className="table__body__item"></td>
+                <td className="table__body__item"></td>
+                <td className="table__body__item"></td>
+                <td className="table__body__item"></td>
+              </tr>
+            </tbody>        
+          </table>        
+        </div>
       </div>
     </Fragment>
   );
 }
+

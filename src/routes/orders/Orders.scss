@@ -3,17 +3,19 @@
 .orders {
   max-width: $max-width;
   margin: 2rem 1rem;
+  padding: 0 10%;
 }
 
 .orders__title {
   margin: 1rem 0;
-  padding-left: 10%;
+  
 }
 
 .table {
   margin: 0 auto;
+  margin-bottom: 1rem;
   width: 100%;
-  padding: 0 10%;
+  
 }
 
 tr:nth-child(even) {
@@ -32,4 +34,23 @@ tr:nth-child(even) {
 
 td, th {
   padding: 4px;
+}
+
+.order__info {
+  margin: 2rem 0;
+}
+
+.order__info__item {
+  display: flex;
+  
+  p:nth-child(1) {
+    width: 30%;
+    font-weight: 700;
+  }
+}
+
+.order__link {
+  margin-top: 1rem;
+  text-decoration: none;
+  color: #000;
 }
