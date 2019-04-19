@@ -16,7 +16,7 @@ export default function ProductRoute(props: any) {
   const [loading, setLoading] = useState(false);
   const [cartLoading, setCartLoading] = useState(false);
   const [cartMessage, setCartMessage] = useState('');
-  const [quantity, setQuantity] = useState(0);
+  const [quantity, setQuantity] = useState(1);
   const [notFound, setNotFound] = useState(false);
   // Sækir upplýsingar um vöru og vörur í sama flokki
   useEffect(()=>{
@@ -92,7 +92,7 @@ export default function ProductRoute(props: any) {
         {username && !cartLoading && (
           <div className="details__lower">
             <span>Fjöldi</span>
-            <input className="details__input" onChange={onChangeQuantity} type="number" min="1"></input>
+            <input className="details__input" onChange={onChangeQuantity} type="number" min="1" value="1"></input>
             <Button
               onClick={addToCartHandler}
               small={true}
