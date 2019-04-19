@@ -33,7 +33,6 @@ export default function Category(props: any) {
       setCategory(category);
       const itemsFromCat = await getCategory(id, 12);
       setProducts(itemsFromCat.items);
-      console.log(itemsFromCat._links)
       setLinks({
         prev: itemsFromCat._links.prev,
         self: itemsFromCat._links.self,

@@ -380,7 +380,6 @@ export async function searchInCategory(searchString: string, id: number) {
   const url = new URL(`products?search=${searchString}&category=${id}`, baseurl);
   const response = await fetch(url.href, options);
   const result = await response.json();
-  // console.log('result í index: ' + JSON.stringify(result));
   return {
     success: response.ok,
     result
