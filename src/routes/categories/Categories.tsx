@@ -28,7 +28,7 @@ export default function CategoriesRoute() {
 
   return (
     <div className="categories">
-    <h3>Skoðaðu vöruflokkana okkar</h3>
+    <h3 className="categories__title">Skoðaðu vöruflokkana okkar</h3>
     <div className="categories__wrapper">
     {categories.map((categories) => (
     <Link to={`/categories/${categories.id}`} className="categories__item" style={{textDecoration: 'none', color: '#000'}}>

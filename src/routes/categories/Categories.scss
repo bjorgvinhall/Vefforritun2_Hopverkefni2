@@ -1,5 +1,14 @@
 @import '../../config.scss';
 
+.categories {
+    max-width: $max-width;
+    margin: 2rem 1rem;
+}
+
+.categories__title {
+    margin: 1rem 0;
+}
+
 .categories__wrapper{
     display: flex; 
     flex-wrap: wrap; 
@@ -24,4 +33,19 @@
     border: 1px solid #000;
     border-color: #333; 
     margin-top: 10px; 
+
+
+    transition: color 250ms ease-in-out;
+    transition: background 250ms ease-in-out;
+    
+}
+
+.categories__item:hover {
+    background: #333;
+    h1 {
+
+        color: #fff;
+    }
+
+    
 }
