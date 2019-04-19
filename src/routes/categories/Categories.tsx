@@ -8,18 +8,11 @@ export default function CategoriesRoute() {
   
   const [categories, setCategories] = useState([] as ICategory[])
   const [loading, setLoading] = useState(false);
- 
-
-
-  // function click(e:any, id: number){
-  //   if(onClick) onClick(id);
-  // }
 
   useEffect(() => {
     const foo = async () => {
       setLoading(true);
       const item = await getCategories();
-      console.log("bla",item)
       setCategories(item.items);
       setLoading(false)
     };
@@ -30,6 +23,9 @@ export default function CategoriesRoute() {
     <div className="categories">
     <h3 className="categories__title">Skoðaðu vöruflokkana okkar</h3>
     <div className="categories__wrapper">
+    {loading && (
+            <h2>Sæki vörur...</h2>
+          )}
     {categories.map((categories) => (
     <Link to={`/categories/${categories.id}`} className="categories__item" style={{textDecoration: 'none', color: '#000'}}>
           <h1 key={categories.id}>
