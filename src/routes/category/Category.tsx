@@ -5,37 +5,47 @@ import { getProductsFromCat, getCategoryDetails, getCategory } from '../../api/i
 import { IProduct, ICategory } from '../../api/types';
 import Product from '../../components/product/Product';
 import Search from '../../components/search/Search';
+import Button from '../../components/button/Button';
 
 export default function Category(props: any) {
   const { id } = props.match.params;
 
-  const [categories, setCategories] = useState({} as ICategory);
+  const [category, setCategory] = useState({} as ICategory);
   const [products, setProducts] = useState([] as IProduct[]);
   const [loading, setLoading] = useState(false);
   const [notFound, setNotFound] = useState(false);
-  // console.log(products) gefur vörur úr röngum flokki
 
   useEffect(()=>{
     const foo = async () => {
       setLoading(true);
-      const cat: ICategory = await getCategoryDetails(id);
-      // console.log(cat) er {"id":12,"title":"Computers"}
-      if(cat === null){
+      const category: ICategory = await getCategoryDetails(id);
+      if(category === null){
         setNotFound(true);
         return;
       }
-      setCategories(cat);
+      setCategory(category);
       const itemsFromCat = await getCategory(id, 100);
-      // id hér er rétt ID
       setProducts(itemsFromCat);
-      // itemsFromCat gefur okkur vörur úr röngum flokki
-      // -> hélt að þetta væri að gulltryggja vörur úr réttum flokki
       setLoading(false)
     };
     foo();
   }, []);
-  // console.log(JSON.stringify(products));
-  // fyrir utan useEffect fallið er categories {"id":12,"title":"Computers"}, annars tómur hlutur {}
+ 
+  async function onSubmitPrev(){
+    // todo
+  }
+
+  async function onSubmitNext(){
+    // todo
+  }
+
+  async function searchInCat(){
+    // setProducts() og það sem Search klasinn skilar hér inní!
+  }
+
+  /*onFetchData={(pageSize, pageIndex)} => {
+    // til að fá út blaðsíðunúmer
+  } */
 
   if(notFound) return(
     <Redirect to="/notFound"></Redirect>
@@ -49,24 +59,45 @@ export default function Category(props: any) {
   return (
     <Fragment>
       <div className="home">
-        <h1>{categories.title}</h1>
+        <h1>{category.title}</h1>
         <Search
-          onClick={null}>
-        </Search>
+          onClick={searchInCat}
+          id={category.id}
+          ></Search>
 
         <div className="products">
           {loading && (
-                <h2>Sæki vörur...</h2>
-              )}
+            <h2>Sæki vörur...</h2>
+          )}
           {products.map((product) => (
-              <Product
-                onClick={null}
-                key={product.id}
-                product={product}
-              ></Product>
-            ))}
-          </div>
+            <Product
+              onClick={null}
+              key={product.id}
+              product={product}
+            ></Product>
+          ))}
         </div>
+
+        <div className="page__form">
+          <div className="search__button">
+            <Button 
+              onClick={onSubmitPrev}
+              >Fyrri síða
+            </Button>
+          </div>
+
+          <p>Síða 1</p>
+
+          <div className="search__button">
+            <Button 
+              onClick={onSubmitNext}
+              >Næsta síða
+            </Button>
+          </div>
+
+       </div>
+
+      </div>
   </Fragment>
   );
 }
