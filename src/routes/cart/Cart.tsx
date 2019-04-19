@@ -16,14 +16,22 @@ export default function Cart() {
   const [cart, setCart] = useState([] as ICart[]);
   const [products, setProducts] = useState([] as IProduct[]);
   const [loading, setLoading] = useState(false);
+  const [empty, setEmpty] = useState(false)
   const [data, setData] = useState({ name: '', address: '' });
+
   useEffect(()=>{
     const foo = async () => {
       setLoading(true);
       const items = await getCart();
+      console.log(items);
+      if (items.lines.length === 0) {
+        console.log('Halallala');
+        
+        setEmpty(true);
+      }
       if (items !== null) {
         setCart(items.lines);
-      }
+      } 
       setLoading(false)
     };
     foo();
@@ -42,7 +50,8 @@ export default function Cart() {
       name: e.target.value,
     });
   }
-
+  
+  // skoða hvort notandi sé skráður inn
   if (!username) {
     return (
       <Fragment>
@@ -53,8 +62,19 @@ export default function Cart() {
         </div>
       </Fragment>
     );
+  } 
+  // skoða hvort karfan sé tóm
+  else if (empty) {
+    return (
+      <Fragment>
+      <Helmet title="Karfa" />
+      <div className="cart">
+        <h1>Karfan er tóm</h1>
+        <Link to="/" className="register__linkToLogin">Aftur á forsíðu</Link>
+      </div>
+    </Fragment>
+    )
   } else {
-
     return (
       <Fragment>
         <Helmet title="Karfa" />
@@ -90,14 +110,7 @@ export default function Cart() {
             </Button>
           </div>
         </div>
-
       </Fragment>
     );
   }
 }
-
-// {data.map((i: any ) => {
-//   <Product
-//     productDetails={i}
-//   ></Product>
-// })}
