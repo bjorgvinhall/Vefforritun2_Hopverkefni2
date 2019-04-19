@@ -71,14 +71,17 @@ export default function Register(props:any) {
     <div className="register__form">
     <Input
       label={'Notendanafn:'}
+      type={'text'}
       onChange={onChangeUser}>
     </Input>
     <Input
       label={'Lykilorð:'}
+      type={'password'}
       onChange={onChangePassword}>
     </Input>
     <Input
     label={'Netfang:'}
+    type={'email'}
     onChange={onChangeEmail}>
     </Input>
     </div>

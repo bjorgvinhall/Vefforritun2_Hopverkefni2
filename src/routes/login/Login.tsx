@@ -51,31 +51,33 @@ export default function Login() {
 
   return (
     <div className={'login__wrapper'}>
-    <h1> Innskráning </h1>
-    {errors && (
-          <div className={'errors'}>
-            {errors && errors.map((error: any) => (
-              <p key={error.field} className={'errors__message'}>{error.error}</p>
-            ))}
-        </div>
-    )}
-    <div className={'login__form'}>
-    <Input
-    label={'Notendanafn:'}
-    onChange={onSubmitUser}>
-    </Input>
-    <Input
-    label={'Lykilorð:'}
-    onChange={onSubmitPassword}>
-    </Input>
-    </div>
-    <div className={'login__button'}>
-    <Button
-    onClick={onSubmit}>
-    Skrá inn
-    </Button>
-    </div>
-    <Link to="/register" className="login__linkToRegister">Nýskrá</Link>
+      <h1> Innskráning </h1>
+      {errors && (
+        <div className={'errors'}>
+          {errors && errors.map((error: any) => (
+            <p key={error.field} className={'errors__message'}>{error.error}</p>
+          ))}
+      </div>
+      )}
+      <div className={'login__form'}>
+        <Input
+          label={'Notendanafn:'}
+          type={'text'}
+          onChange={onSubmitUser}>
+        </Input>
+        <Input
+          label={'Lykilorð:'}
+          type={'password'}
+          onChange={onSubmitPassword}>
+        </Input>
+      </div>
+      <div className={'login__button'}>
+        <Button
+          onClick={onSubmit}>
+          Skrá inn
+        </Button>
+      </div>
+      <Link to="/register" className="login__linkToRegister">Nýskrá</Link>
     </div>
   );
 }
