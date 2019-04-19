@@ -45,7 +45,16 @@
     h1 {
 
         color: $color-background;
+    }   
+}
+
+@media (max-width:650px){
+    .categories__item{
+        width: 100%;
+        height: 5rem;
     }
 
-    
+    .categories__item h1{
+        padding: 0;
+    }
 }

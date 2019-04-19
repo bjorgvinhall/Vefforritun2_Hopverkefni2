@@ -5,3 +5,10 @@
   width: 100%;
   max-width: $max-width;
 }
+
+@media (max-width:650px){
+  .app{
+    margin: 1rem;
+    width: 95%;
+  }
+}

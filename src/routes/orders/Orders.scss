@@ -64,3 +64,12 @@ td, th {
   text-decoration: none;
   color: $color-font;
 }
+
+@media (max-width:650px){
+  .orders{
+    padding: 0;
+  }
+  .table__body > tr > td {
+    font-size: 0.8rem;
+  }
+}
