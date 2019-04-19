@@ -45,10 +45,13 @@ export default function Cart() {
 
   if (!username) {
     return (
-      <div className="cart">
-        <h2>Vinsamlegast skráðu þig inn til þess að skoða körfu.</h2>
-        <Link to="/login" className="register__linkToLogin">Innskráning</Link>
-      </div>
+      <Fragment>
+        <Helmet title="Karfa" />
+        <div className="cart">
+          <h1>Vinsamlegast skráðu þig inn til þess að skoða körfu.</h1>
+          <Link to="/login" className="register__linkToLogin">Innskráning</Link>
+        </div>
+      </Fragment>
     );
   } else {
 
