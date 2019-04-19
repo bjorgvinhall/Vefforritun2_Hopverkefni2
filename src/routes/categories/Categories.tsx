@@ -30,7 +30,7 @@ export default function CategoriesRoute() {
             <h2>Sæki vörur...</h2>
           )}
     {categories.map((categories) => (
-    <Link to={`/categories/${categories.id}`} className="categories__item" style={{textDecoration: 'none', color: '#000'}}>
+    <Link key={categories.id} to={`/categories/${categories.id}`} className="categories__item" style={{textDecoration: 'none', color: '#000'}}>
           <h1 key={categories.id}>
             {categories.title}
           </h1>
