@@ -8,9 +8,9 @@
 > npm install
 ```
 
-Búa til .env skrá í rót verkefnis (vef2-hop2) og setja í hana eftirfarandi línu:
+Búa til .env skrá í rót verkefnis (vef2-hop2) og afrita eftirfarandi línu:
 
-REACT_APP_API_URL= [https://hop1-syni.herokuapp.com](https://hop1-syni.herokuapp.com)
+*REACT_APP_API_URL= [https://hop1-syni.herokuapp.com](https://hop1-syni.herokuapp.com)*
 
 Þá er loks hægt að keyra verkefnið með eftirfarandi keyrslu
 

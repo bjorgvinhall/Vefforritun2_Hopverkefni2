@@ -1,14 +1,18 @@
 @import '../../config.scss';
 
-.details {
-    display: flex;
-    max-width: 100%;
-    margin: 2rem 1rem;
-}
-
-.details__image{
-    width: 50%;
-    height: 400px;
+@media (min-width:650px){
+    .details {
+        display: flex;
+        max-width: 100%;
+        margin: 2rem 1rem;
+    }
+    .details__image{
+        width: 50%;
+        height: 400px;
+    }
+    .details__info {
+        max-width: 50%;
+    }
 }
 
 .details__img {
@@ -16,10 +20,6 @@
     max-width: 97%;
     width: 100%;
     height: 100%;
-}
-
-.details__info {
-    max-width: 50%;
 }
 
 .details__category {
@@ -52,4 +52,17 @@
 
 .details__cartMessage {
     margin-left: 1rem;
+}
+
+@media (max-width:650px){
+    .details{
+        display: flex;
+        flex-direction: column;
+    }
+    .more{
+        margin: 2rem 1rem 2rem 0rem;
+        h3{
+            font-size: 1.5rem;
+        }
+    }
 }
