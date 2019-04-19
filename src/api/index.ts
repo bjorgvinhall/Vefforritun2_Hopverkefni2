@@ -262,6 +262,27 @@ export async function getOrders() {
   return result;
 }
 
+export async function getOrderInfo(id: number) { 
+  const options = {
+    headers: {
+      'content-type': 'application/json',
+      'Authorization': `Bearer ${token}`,
+    },
+    method: 'GET',
+  };
+
+  const url = new URL(`orders/${id}`, baseurl);
+  const response = await fetch(url.href, options);
+  
+  if (!response.ok) {
+    return null;
+  }
+
+  const result = await response.json();
+  
+  return result;
+}
+
 /**
  * Sækir upplýsingar um flokk
  * @param id númer flokks
