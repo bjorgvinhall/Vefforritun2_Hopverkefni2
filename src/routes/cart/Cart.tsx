@@ -28,7 +28,6 @@ export default function Cart() {
     const foo = async () => {
       setLoading(true);
       const items = await getCart();
-      console.log(items);
       if (items !== null) {
         setCart(items.lines);
         setTotal(items.total)
@@ -67,7 +66,6 @@ export default function Cart() {
     setCartMessage('');
     setErrors([]);
     const result = await placeOrder(data.name, data.address);
-    console.log('Pöntun', result);
     
 
     if (!result.success) {
