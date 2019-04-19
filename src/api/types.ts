@@ -56,5 +56,3 @@ export interface Ierrors {
   field: string;
   error: string;
 }
-
-// todo fleiri týpur

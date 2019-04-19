@@ -1,17 +1,12 @@
-import { IProduct } from './types';
 import 'isomorphic-fetch';
 const baseurl:string | undefined = process.env.REACT_APP_API_URL;
 
 // Sækir token úr localstorage, ef ekki til þá tómistrengurinn
 const token = localStorage.getItem('token') || '';
 
-
 /**
  * Sækir vörur fyrir forsíðu
- * @param limit hversu margar vörur á að sækja
- * 
- * TODO hægt að bæta við offset til að sækja næstu síðu
- * 
+ * @param limit Hversu margar vörur á að sækja
  */
 async function getProducts(limit: number) {
   const url = new URL(`products/?limit=${limit}`, baseurl);
@@ -26,6 +21,9 @@ async function getProducts(limit: number) {
   return result;
 }
 
+/**
+ * Sækir alla flokkana
+ */
 export async function getCategories() {
   const url = new URL(`categories?limit=500`, baseurl);
   const response = await fetch(url.href);
@@ -41,7 +39,7 @@ export async function getCategories() {
 
 /**
  * Sækir upplýsingar um vöru
- * @param id númer vöru
+ * @param id Auðkenni vöru
  */
 export async function getProductDetails(id: number) {
   const url = new URL(`products/${id}`, baseurl);
@@ -58,8 +56,8 @@ export async function getProductDetails(id: number) {
 
 /**
  * Sækir vörur í ákveðnum vöruflokk á /categories
- * @param id númer vöru
- * @param limit hve margar vörur á að sækja
+ * @param id Auðkenni vöru
+ * @param limit Hve margar vörur á að sækja
  * 
  */
 export async function getCategory(id: number, limit: number) {
@@ -76,8 +74,8 @@ export async function getCategory(id: number, limit: number) {
 
 /**
  * Sækir vörur í ákveðnum vöruflokk á /categories
- * @param id númer vöru
- * @param limit hve margar vörur á að sækja
+ * @param id Auðkenni vöru
+ * @param limit Hve margar vörur á að sækja
  * 
  */
 export async function getPage(link: any, id: number) {
@@ -93,8 +91,8 @@ export async function getPage(link: any, id: number) {
 
 /**
  * Sækir vörur í ákveðnum vöruflokk
- * @param id númer vöru
- * @param limit hve margar vörur á að sækja
+ * @param id Auðkenni vöru
+ * @param limit Hve margar vörur á að sækja
  * 
  */
 export async function getProductsFromCat(id: number, limit: number) {
@@ -111,6 +109,11 @@ export async function getProductsFromCat(id: number, limit: number) {
   return result.items;
 }
 
+/**
+ * Bætir við vöru(m) í körfu
+ * @param product Vara sem notandi vill setja í körfu
+ * @param quantity Fjöldi af tiltekinni vöru
+ */
 export async function addToCart(product: number, quantity: number) {
   const options = {
     body: JSON.stringify({
@@ -133,7 +136,12 @@ export async function addToCart(product: number, quantity: number) {
   }
 }
 
-
+/**
+ * Býr til nýjan notanda
+ * @param username Notandanafn
+ * @param password Lykilorð
+ * @param email Netfang
+ */
 export async function registerUser(username: any, password: any , email: any) {
   const options = {
     body: JSON.stringify({
@@ -156,6 +164,11 @@ export async function registerUser(username: any, password: any , email: any) {
   }
 }
 
+/**
+ * Skráir inn notanda
+ * @param username Notandanafn notanda
+ * @param password Lykilorð notanda
+ */
 export async function loginUser(username: any, password: any) {
   const options = {
     body: JSON.stringify({
@@ -177,6 +190,9 @@ export async function loginUser(username: any, password: any) {
   }
 }
 
+/**
+ * Nær í körfu notanda
+ */
 async function getCart() {
 
   const options = {
@@ -199,9 +215,12 @@ async function getCart() {
   return result;
 }
 
+/**
+ * Uppfærir stöðu körfunnar
+ * @param id Auðkenni sem varan hefur í körfunni (ekki auðkenni vöru)
+ * @param quantity Fjöldi tiltekinnar vöru í körfu
+ */
 export async function updateCart(id: number, quantity: number) {
-  console.log('Blessaður!', id, quantity);
-  
   const options = {
     body: JSON.stringify({
       quantity
@@ -224,6 +243,10 @@ export async function updateCart(id: number, quantity: number) {
   }
 }
 
+/**
+ * Fjarlægir vöru úr körfu
+ * @param id Auðkenni sem varan hefur í körfunni (ekki auðkenni vöru)
+ */
 export async function removeFromCart(id: number) {
   const options = {
     headers: {
@@ -239,6 +262,11 @@ export async function removeFromCart(id: number) {
   return response.ok;
 }
 
+/**
+ * Býr til pöntun sem notandi leggur inn
+ * @param name Nafn notanda
+ * @param address Heimilisfang notanda
+ */
 export async function placeOrder(name: string, address: string) {
   const options = {
     body: JSON.stringify({
@@ -253,10 +281,8 @@ export async function placeOrder(name: string, address: string) {
   };
   
   const url = new URL('/orders', baseurl);
-
   const response = await fetch(url.href, options);
   const result = await response.json();
-  console.log('Index', result);
   
   return {
     success: response.ok,
@@ -264,6 +290,9 @@ export async function placeOrder(name: string, address: string) {
   }
 }
 
+/**
+ * Sækir pantanir
+ */
 export async function getOrders() {
   const options = {
     headers: {
@@ -285,6 +314,10 @@ export async function getOrders() {
   return result;
 }
 
+/**
+ * Sækir upplýsingar um pöntun
+ * @param id Auðkenni pöntunar
+ */
 export async function getOrderInfo(id: number) { 
   const options = {
     headers: {
