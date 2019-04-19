@@ -30,7 +30,7 @@ export default function Category(props: any) {
         return;
       }
       setCategory(category);
-      const itemsFromCat = await getCategory(id, 3);
+      const itemsFromCat = await getCategory(id, 12);
       setProducts(itemsFromCat.items);
       setLinks({
         prev: itemsFromCat._links.prev,

@@ -25,16 +25,21 @@
 .header__link {
     padding: 1rem; 
 }
+.header__contentLink {
+    display: flex;
+    flex-direction: column;
+}
 .header__contentLinkUpper {
     padding: 1rem; 
 }
 .header__contentLinkLower {
+    margin: auto;
     padding: 0 1.5rem; 
 }
 .header__link--selected {
     font-weight: 700; 
 }
-@media (max-width:650px){
+@media (max-width:1000px){
     .header__content {
         flex-direction: column;
     }
