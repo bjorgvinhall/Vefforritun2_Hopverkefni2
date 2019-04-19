@@ -1,5 +1,35 @@
 @import '../../config.scss';
 
 .orders {
+  max-width: $max-width;
+  margin: 2rem 1rem;
+}
 
+.orders__title {
+  margin: 1rem 0;
+  padding-left: 10%;
+}
+
+.table {
+  margin: 0 auto;
+  width: 100%;
+  padding: 0 10%;
+}
+
+tr:nth-child(even) {
+  background: #ccc;
+}
+
+.table__head {
+  background: #000;
+  color: #fff;
+  text-align: left;
+}
+
+.table__head__item {
+  margin: 0;
+}
+
+td, th {
+  padding: 4px;
 }
