@@ -56,6 +56,7 @@ export default function Category(props: any) {
     }
     setProducts(result.result.items);
     setLoading(false);
+    setpage(1);
   }
 
   async function onSubmitNextPage(link: string) {
