@@ -93,6 +93,23 @@ export async function getCategory(id: number, limit: number) {
 }
 
 /**
+ * Sækir vörur í ákveðnum vöruflokk á /categories
+ * @param id númer vöru
+ * @param limit hve margar vörur á að sækja
+ * 
+ */
+export async function getPage(link: any) {
+  const response = await fetch(link.href);
+  if (!response.ok) {
+    return null;
+  }
+  
+  const result = await response.json();
+  
+  return result;
+}
+
+/**
  * Sækir vörur í ákveðnum vöruflokk
  * @param id númer vöru
  * @param limit hve margar vörur á að sækja

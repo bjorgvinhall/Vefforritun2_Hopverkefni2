@@ -2,7 +2,7 @@ import React, { Fragment, useState, useEffect } from 'react';
 import { Redirect, Link } from 'react-router-dom';
 import './Category.scss';
 
-import { getCategoryDetails, getCategory, searchInCategory } from '../../api/index';
+import { getCategoryDetails, getCategory, searchInCategory, getPage } from '../../api/index';
 
 import { IProduct, ICategory, Ierrors } from '../../api/types';
 import Product from '../../components/product/Product';
@@ -18,7 +18,8 @@ export default function Category(props: any) {
   const [loading, setLoading] = useState(false);
   const [notFound, setNotFound] = useState(false);
   const [searchString, setSearchString] = useState('');
-  const [page, setPage] = useState(1);
+  const [links, setLinks] = useState({prev: '',self: '',next: ''});
+  const [page, setpage] = useState(1);
 
   useEffect(()=>{
     const foo = async () => {
@@ -30,8 +31,12 @@ export default function Category(props: any) {
       }
       setCategory(category);
       const itemsFromCat = await getCategory(id, 3);
-			console.log("TCL: foo -> itemsFromCat", itemsFromCat)
       setProducts(itemsFromCat.items);
+      setLinks({
+        prev: itemsFromCat._links.prev,
+        self: itemsFromCat._links.self,
+        next: itemsFromCat._links.next,
+      })
       setLoading(false)
     };
     foo();
@@ -52,12 +57,26 @@ export default function Category(props: any) {
     setLoading(false);
   }
 
-  async function onSubmitPage(newPage: number) {
-    const categ = await getCategory(id, 3);
-    const nextPage = categ._links.next.href;
-    const nextPageItems = nextPage.items;
-    setProducts(nextPageItems);
-    setPage(page + newPage);
+  async function onSubmitNextPage(link: string) {
+    const result = await getPage(link);
+    setProducts(result.items);
+    setLinks({
+      prev: result._links.prev,
+      self: result._links.self,
+      next: result._links.next,
+    })
+    setpage(page + 1)
+  }
+
+  async function onSubmitPrevPage(link: string){
+    const result = await getPage(link);
+    setProducts(result.items);
+    setLinks({
+      prev: result._links.prev,
+      self: result._links.self,
+      next: result._links.next,
+    })
+    setpage(page - 1)
   }
 
   if(notFound) return(
@@ -107,21 +126,23 @@ export default function Category(props: any) {
           ))}
         </div>
         <div className="page__form">
-        {page > 1 && (
+        {links.prev && (
             <div className="search__button">
             <Button 
-              onClick={() => { onSubmitPage(-1)}}
+              onClick={() => { onSubmitPrevPage(links.prev)}}
               >Fyrri síða
             </Button>
           </div>
         )}
-          <p>Síða {page}</p>
+        <p>Síða {page}</p>
+        {links.next && (
           <div className="search__button">
             <Button 
-              onClick={() => { onSubmitPage(1)}}
+              onClick={() => { onSubmitNextPage(links.next)}}
               >Næsta síða
             </Button>
           </div>
+        )}
        </div>
       </div>
   </Fragment>

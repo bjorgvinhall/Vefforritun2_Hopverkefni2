@@ -22,9 +22,6 @@ export default function Orders(props: any) {
       const items = await getOrders();
       if (items !== null) {
         setOrders(items.items);
-      } 
-      if (items.items.length === 0) {
-        setEmpty(true);
       }
       setLoading(false)
     };

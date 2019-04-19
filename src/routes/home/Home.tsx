@@ -7,12 +7,13 @@ import Button from '../../components/button/Button';
 import Categories from '../categories/Categories';
 import './Home.scss';
 
-import { getProducts } from '../../api/index';
+import { getProducts, getPage } from '../../api/index';
 import { IProduct } from '../../api/types';
 
 export default function Home() {
   const [products, setProducts] = useState([] as IProduct[]);
   const [loading, setLoading] = useState(false);
+
   useEffect(()=>{
     const foo = async () => {
       setLoading(true);
@@ -47,17 +48,8 @@ export default function Home() {
             </NavLink>
             </Button>
           </div>
-  
         <Categories></Categories>
       </div>
     </Fragment>
   );
 }
-
-// <NavLink className="header__link" activeClassName="header__link--selected" exact to="/categories">Flokkar</NavLink>
-
-// {data.map((i: any ) => {
-//   <Product
-//     productDetails={i}
-//   ></Product>
-// })}
