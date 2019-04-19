@@ -1,4 +1,5 @@
 import React, { Fragment, useState, useEffect } from 'react';
+import Helmet from 'react-helmet';
 import { Redirect, Link } from 'react-router-dom';
 import './Category.scss';
 
@@ -91,6 +92,7 @@ export default function Category(props: any) {
 
   return (
     <Fragment>
+      <Helmet title="Flokkar" />
       <div className="home">
         <h1>{category.title}</h1>
         <div className={'search__wrapper'}>

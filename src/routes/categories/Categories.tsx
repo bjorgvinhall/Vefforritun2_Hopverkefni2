@@ -1,6 +1,7 @@
-import React, { useState, useEffect } from 'react';
+import React, { Fragment, useState, useEffect } from 'react';
 import { ICategory } from '../../api/types';
 import {Link} from 'react-router-dom'
+import Helmet from 'react-helmet';
 import { getCategories } from '../../api/index';
 import './Categories.scss';
 
@@ -20,6 +21,8 @@ export default function CategoriesRoute() {
   }, []);
 
   return (
+    <Fragment>
+    <Helmet title="Flokkar" />
     <div className="categories">
     <h3 className="categories__title">Skoðaðu vöruflokkana okkar</h3>
     <div className="categories__wrapper">
@@ -35,5 +38,6 @@ export default function CategoriesRoute() {
         ))}
     </div>
     </div>
+    </Fragment>
   );
 }
