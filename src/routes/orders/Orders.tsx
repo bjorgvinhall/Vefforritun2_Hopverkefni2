@@ -46,6 +46,7 @@ export default function Orders(props: any) {
       </Fragment>
     );
   }
+  
   return (
     <Fragment>
       <Helmet title="Pantanir" />
@@ -67,7 +68,7 @@ export default function Orders(props: any) {
             </thead>
             <tbody className="table__body">
               {username && orders.map((order) => (
-                <tr>
+                <tr className="table__body__row">
                   <td className="table__body__item"><Link to={`/orders/${order.id}`} onClick={(e: any) => klikk(e, order.id)} className="table__body__link">Pöntun #{order.id}</Link></td>
                   <td className="table__body__item">{order.name}</td>
                   <td className="table__body__item">{order.address}</td>

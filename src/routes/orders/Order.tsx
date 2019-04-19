@@ -1,5 +1,5 @@
 import React, { Fragment, useState, useEffect } from 'react';
-import { Link } from 'react-router-dom'
+import { Link, Redirect } from 'react-router-dom'
 import Helmet from 'react-helmet';
 
 import './Orders.scss';
@@ -10,12 +10,10 @@ import { IOrder } from '../../api/types';
 export default function Order(props: any) {
   const username = localStorage.getItem('username');
   const { id } = props.match.params;
-  let information = [];
-
   const { onClick } = props;
 
   const [loading, setLoading] = useState(false);
-  const [empty, setEmpty] = useState(false);
+  const [notFound, setNotFound] = useState(false);
   const [order, setOrder] = useState([] as IOrder[]);
   const [total, setTotal] = useState(0);
   const [name, setName] = useState('');
@@ -26,11 +24,13 @@ export default function Order(props: any) {
     const foo = async () => {
       setLoading(true);
       const items = await getOrderInfo(id);
-      console.log('Items:', items);
-      information = items;
+      console.log(items);
+      
+      if (items === null) {
+        setNotFound(true);
+      }
+
       if (items !== null) {
-        console.log('Lines:', items.lines);
-        
         setOrder(items.lines);
         setTotal(items.total);
         setName(items.name);
@@ -42,14 +42,22 @@ export default function Order(props: any) {
     foo();
   }, []);
 
+  function klikk(e: any, id: number){
+    if(onClick) onClick(id);
+  }
+
+  if (notFound) {
+    return <Redirect to="/notFound" />
+  }
+
   return (
     <Fragment>
-      <Helmet title="Pantanir" />
+      <Helmet title="Pöntun" />
       <div className="orders">
         {loading && (
           <h2>Sæki vörur...</h2>
         )}
-        <h1 className="orders__title" >Pöntun #{id}</h1>
+        <h1 className="orders__title">Pöntun #{id}</h1>
         <div className="order__info">
           <div className="order__info__item">
             <p>Nafn</p>
@@ -77,7 +85,11 @@ export default function Order(props: any) {
             <tbody className="table__body">
               {username && order.map((orderItem) => (
                 <tr className="table__body__row">
-                  <td className="table__body__item">{orderItem.title}</td>
+                  <td className="table__body__item">
+                    <Link to={`/product/${orderItem.product_id}`} onClick={(e: any) => klikk(e, orderItem.product_id)} className="order__link">
+                      {orderItem.title}
+                    </Link>
+                  </td>
                   <td className="table__body__item">{orderItem.price}</td>
                   <td className="table__body__item">{orderItem.quantity}</td>
                   <td className="table__body__item">{orderItem.total}</td>
@@ -88,7 +100,7 @@ export default function Order(props: any) {
                 <td className="table__body__item">{}</td>
                 <td className="table__body__item">{}</td>
                 <td className="table__body__item">{total} kr.-</td>
-                </tr>
+              </tr>
             </tbody>        
           </table>        
         </div>

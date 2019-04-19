@@ -19,12 +19,12 @@
 }
 
 .table__body__row:nth-child(even) {
-  background: #ccc;
+  background: $color-gray;
 }
 
 .table__head {
-  background: #000;
-  color: #fff;
+  background: $color-font;
+  color: $color-background;
   text-align: left;
 }
 
@@ -38,12 +38,12 @@ td, th {
 
 .table__body__link {
   text-decoration: none;
-  color: #000
+  color: $color-font
 }
 
 .table__body__total {
   font-weight: 700;
-  background: #fff;
+  background: $color-background;
 }
 
 .order__info {
@@ -62,5 +62,5 @@ td, th {
 .order__link {
   margin-top: 1rem;
   text-decoration: none;
-  color: #000;
+  color: $color-font;
 }
