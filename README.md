@@ -1,5 +1,11 @@
 # Hópverkefni 2
 
+## Verkefnið okkar, keyrandi á vefnum
+Hér er hægt að skoða verkefnið okkar, það tekur smá stund fyrir verkefnið að byrja að keyra eftir að þið opnið linkinn
+
+* https://veff2-hop2.herokuapp.com/
+
+
 ## Uppsetning verkefnis
 
 ```bash
