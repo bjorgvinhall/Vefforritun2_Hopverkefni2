@@ -9,7 +9,7 @@
     "@types/react-dom": "16.8.3",
     "cloudinary": "^1.14.0",
     "cloudinary-react": "^1.1.0",
-    "node-sass": "^4.11.0",
+    "node-sass": "^7.0.0",
     "react": "^16.8.5",
     "react-dom": "^16.8.5",
     "react-helmet": "^5.2.0",
